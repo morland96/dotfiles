@@ -5,7 +5,6 @@
 local map = vim.keymap.set
 local nx = { "n", "x" }
 
-
 map("n", "<Leader>wh", "<C-w>h", { desc = "Go to left window" })
 map("n", "<Leader>wj", "<C-w>j", { desc = "Go to bottom window" })
 map("n", "<Leader>wk", "<C-w>k", { desc = "Go to top window" })
@@ -66,9 +65,9 @@ else
   map("n", "<Leader>js", telescope_builtin.treesitter, { desc = "Jump treesitter" })
 
   -- Search
-  map("n", "<Leader>ss", telescope_builtin.lsp_document_symbols, { desc = "Search symbols in file" })
+  -- map("n", "<Leader>ss", telescope_builtin.lsp_document_symbols, { desc = "Search symbols in file" })
   map("n", "<Leader>s.", telescope_builtin.builtin, { desc = "Telescope search" })
-  map("n", "<Leader>sS", telescope_builtin.lsp_dynamic_workspace_symbols, { desc = "Search symbols in workspace" })
+  -- map("n", "<Leader>sS", telescope_builtin.lsp_dynamic_workspace_symbols, { desc = "Search symbols in workspace" })
 
   -- Goto
   map("n", "<Leader>ci", telescope_builtin.lsp_implementations, { desc = "Goto Implementation" })
@@ -106,18 +105,26 @@ else
   map("n", "<Leader>rr", vim.lsp.buf.rename, { desc = "Rename" })
   map("n", "<Leader>ra", vim.lsp.buf.code_action, { desc = "Code Action" })
 
-
   -- Java
   vim.api.nvim_create_autocmd("LspAttach", {
     callback = function(args)
       local client = vim.lsp.get_client_by_id(args.data.client_id)
+      local wk = require("which-key")
+      wk.register({
+        ["<leader>clr"] = { vim.lsp.codelens.refresh, "Refresh CodeLens" },
+        ["<leader>cla"] = { vim.lsp.codelens.run, "Run CodeLens" },
+        ["<leader>cll"] = { "<cmd>LspInfo<cr>", "LSP Info" },
+      }, {
+        mode = "n",
+        buffer = args.buf,
+      })
       if client and client.name == "jdtls" then
-        local wk = require("which-key")
         wk.register({
           ["<leader>ct"] = { require("jdtls.tests").goto_subjects, "Goto Subjects" },
           ["<leader>cI"] = { require("jdtls").super_implementation, "Goto Super" },
         }, {
-            mode = "n", buffer = args.buf
+          mode = "n",
+          buffer = args.buf,
         })
       end
     end,

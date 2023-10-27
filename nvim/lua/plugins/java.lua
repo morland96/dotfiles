@@ -46,7 +46,7 @@ return {
         -- How to run jdtls. This can be overridden to a full java command-line
         -- if the Python wrapper script doesn't suffice.
         -- Using $JAVA_17_HOME
-        cmd = { "jdtls", "-Xmx4g" },
+        cmd = { "jdtls", "-Xmx8g" },
         full_cmd = function(opts)
           local fname = vim.api.nvim_buf_get_name(0)
           local root_dir = opts.root_dir(fname)
