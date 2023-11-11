@@ -1,0 +1,41 @@
+# yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
+# sudo yabai --load-sa
+
+yabai -m config external_bar             all:35:0 \
+                mouse_follows_focus      off \
+                focus_follows_mouse      off \
+                window_zoom_percent      off \
+                window_placement         second_child \
+                auto_padding             on \
+                top_padding              12 \
+                bottom_padding           8 \
+                left_padding             8 \
+                right_padding            8 \
+                window_gap               10
+
+
+# Disable specific apps
+yabai -m rule --add app="^System Settings$" manage=off
+yabai -m rule --add app="^Calculator$" manage=off
+yabai -m rule --add app="Slack$" manage=off
+yabai -m rule --add app="^Karabiner-Elements$" manage=off
+
+yabai -m config mouse_follows_focus          off
+# yabai -m config focus_follows_mouse          autofocus
+
+yabai -m signal --add event=window_focused action="sketchybar --trigger window_focus"
+yabai -m signal --add event=window_created action="sketchybar --trigger windows_on_spaces"
+yabai -m signal --add event=window_destroyed action="sketchybar --trigger windows_on_spaces"
+
+jetbrains_apps='^(IntelliJ IDEA|WebStorm|GoLand|PyCharm)$'
+yabai -m rule --add app="JetBrains Toolbox" manage=off
+yabai -m rule --add app="${jetbrains_apps}" manage=off
+yabai -m rule --add app="${jetbrains_apps}" title="~/projects" manage=on
+yabai -m signal --add event=window_created app="${jetbrains_apps}" action='~/.config/dotfiles/yabai/scripts/unfloat_individual_window.sh'
+
+yabai -m rule --add app="^(Calculator|Software Update|Dictionary|System Preferences|System Settings|zoom.us|Photo Booth|Archive Utility|App Store|Activity Monitor|Music)$" manage=off
+yabai -m rule --add label="Finder" app="^Finder$" title="(Co(py|nnect)|Move|Info|Pref)" manage=off
+yabai -m rule --add label="Safari" app="^Safari$" title="^(General|(Tab|Password|Website|Extension)s|AutoFill|Se(arch|curity)|Privacy|Advance)$" manage=off
+yabai -m rule --add label="About This Mac" app="System Information" title="About This Mac" manage=off
+
+yabai -m config layout                   bsp

@@ -1,0 +1,83 @@
+# .blacklist [
+#   "kitty"
+# ]
+
+alt - return : /Applications/kitty.app/Contents/MacOS/kitty --single-instance -d ~
+
+alt - j : yabai -m window --focus south
+alt - k : yabai -m window --focus north
+alt - h : yabai -m window --focus west
+alt - l : yabai -m window --focus east
+
+alt + shift - h : yabai -m window --swap west || $(yabai -m window --display west; yabai -m display --focus west)
+alt + shift - j : yabai -m window --swap south || $(yabai -m window --display south; yabai -m display --focus south)
+alt + shift - k : yabai -m window --swap north || $(yabai -m window --display north; yabai -m display --focus north)
+alt + shift - l : yabai -m window --swap east || $(yabai -m window --display east; yabai -m display --focus east)
+
+# set insertion point in focused container
+alt + ctrl - h : yabai -m window --insert west
+alt + ctrl - j : yabai -m window --insert south
+alt + ctrl - k : yabai -m window --insert north
+alt + ctrl - l : yabai -m window --insert east
+
+# move focused window to next/prev workspace
+alt + shift - 1 : yabai -m window --space 1
+alt + shift - 2 : yabai -m window --space 2
+alt + shift - 3 : yabai -m window --space 3
+alt + shift - 4 : yabai -m window --space 4
+alt + shift - 5 : yabai -m window --space 5
+alt + shift - 6 : yabai -m window --space 6
+alt + shift - 7 : yabai -m window --space 7
+alt + shift - 8 : yabai -m window --space 8
+alt + shift - 9 : yabai -m window --space 9
+
+
+# send window to monitor and follow focus
+ctrl + cmd - c  : yabai -m window --display next; yabai -m display --focus next
+ctrl + cmd - 1  : yabai -m window --display 1; yabai -m display --focus 1
+ctrl + cmd - 2  : yabai -m window --display 2; yabai -m display --focus 2
+ctrl + cmd - 3  : yabai -m window --display 3; yabai -m display --focus 3
+
+# Focus on target monitor
+ctrl + alt - 1 : yabai -m display --focus 1
+ctrl + alt - 2 : yabai -m display --focus 2
+ctrl + alt - 3 : yabai -m display --focus 3
+
+# # mirror tree y-axis
+alt + shift - y : yabai -m space --mirror y-axis
+
+# # mirror tree x-axis
+alt + shift - x : yabai -m space --mirror x-axis
+
+# balance size of windows
+alt + shift - 0 : yabai -m space --balance
+
+alt + cmd - e : yabai -m space --layout bsp
+alt + cmd - l : yabai -m space --layout float; sketchybar --trigger window_focus 
+alt + cmd - s : yabai -m space --layout stack
+
+
+alt - p : yabai -m window --focus stack.prev || yabai -m window --focus south
+alt - n : yabai -m window --focus stack.next || yabai -m window --focus north
+
+# enter fullscreen mode for the focused container
+alt - f : yabai -m window --toggle zoom-fullscreen; sketchybar --trigger window_focus
+alt + shift - f : yabai -m window --toggle zoom-parent; sketchybar --trigger window_focus
+
+# toggle window native fullscreen
+# alt + shift - f : yabai -m window --toggle native-fullscreen
+
+alt - w : yabai -m window --close
+
+# float / unfloat window and center on screen
+alt - t : yabai -m window --toggle float --grid 4:4:1:1:2:2; sketchybar --trigger window_focus
+
+
+# toggle window split type
+alt - e : yabai -m window --toggle split
+
+ctrl + alt + cmd - r : yabai --restart-service
+
+alt - s : hs -c "stackline.config:toggle('appearance.showIcons')"
+
+alt + shift - p : yabai -m space --toggle padding
