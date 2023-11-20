@@ -59,6 +59,8 @@ alt + cmd - s : yabai -m space --layout stack
 
 alt - p : yabai -m window --focus stack.prev || yabai -m window --focus south
 alt - n : yabai -m window --focus stack.next || yabai -m window --focus north
+alt + cmd - p : yabai -m window --space prev
+alt + cmd - n : yabai -m window --space next
 
 # enter fullscreen mode for the focused container
 alt - f : yabai -m window --toggle zoom-fullscreen; sketchybar --trigger window_focus

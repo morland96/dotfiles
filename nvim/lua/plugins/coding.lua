@@ -88,6 +88,7 @@ return {
     opts = function(_, opts)
       opts.defaults = vim.tbl_extend("force", opts.defaults, {
         ["<leader>r"] = { name = "+refactoring" },
+        ["<leader>p"] = { name = "+project" },
         -- ["<leader>d"] = { name = "+debug" },
         -- ["<leader>da"] = { name = "+adapters" },
       })
