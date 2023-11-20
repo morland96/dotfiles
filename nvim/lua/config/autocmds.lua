@@ -15,11 +15,23 @@ vim.api.nvim_create_autocmd("LspAttach", {
     local client = vim.lsp.get_client_by_id(args.data.client_id)
     if client and client.name == "jdtls" then
       -- pcall(vim.lsp.codelens.refresh)
-      vim.api.nvim_create_autocmd({ "BufEnter"}, {
+      vim.api.nvim_create_autocmd({ "BufEnter" }, {
         callback = function()
           pcall(vim.lsp.codelens.refresh)
         end,
       })
     end
   end,
+})
+
+vim.api.nvim_create_autocmd("VimEnter", {
+  desc = "Auto select virtualenv Nvim open",
+  pattern = "*",
+  callback = function()
+    local venv = vim.fn.findfile("pyproject.toml", vim.fn.getcwd() .. ";")
+    if venv ~= "" then
+      require("venv-selector").retrieve_from_cache()
+    end
+  end,
+  once = true,
 })

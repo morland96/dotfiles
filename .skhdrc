@@ -79,6 +79,8 @@ alt - t : yabai -m window --toggle float --grid 4:4:1:1:2:2; sketchybar --trigge
 alt - e : yabai -m window --toggle split
 
 ctrl + alt + cmd - r : yabai --restart-service
+shift + alt - d : yabai --stop-service
+shift + alt - u : yabai --start-service
 
 alt - s : hs -c "stackline.config:toggle('appearance.showIcons')"
 
