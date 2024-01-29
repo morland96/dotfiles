@@ -4,6 +4,11 @@ return {
     dependencies = { "folke/which-key.nvim" },
     ft = { "java" },
     opts = function()
+      local root_dir = require("jdtls.setup").find_root({ ".git" })
+      local project_name = root_dir and vim.fs.basename(root_dir)
+      local workspace_dir = vim.fn.stdpath("cache") .. "/jdtls/" .. project_name .. "/workspace"
+      local home = os.getenv("HOME")
+      local jdtls_base = home .. "/.local/share/nvim/mason/packages/jdtls"
       return {
         -- How to find the root dir for a given filename. The default comes from
         -- lspconfig which provides a function specifically for java projects.
@@ -35,7 +40,7 @@ return {
                 runtimes = {
                   {
                     name = "JavaSE-11",
-                    path = "/Library/Java/JavaVirtualMachines/temurin-11.jdk/Contents/Home",
+                    path = "/Users/mmeng/.asdf/installs/java/temurin-11.0.21+9",
                   },
                 },
               },
@@ -46,20 +51,31 @@ return {
         -- How to run jdtls. This can be overridden to a full java command-line
         -- if the Python wrapper script doesn't suffice.
         -- Using $JAVA_17_HOME
-        cmd = { "jdtls", "-Xmx8g" },
+        cmd = {
+          "/Users/mmeng/.asdf/installs/java/temurin-17.0.9+9/bin/java",
+          "-Declipse.application=org.eclipse.jdt.ls.core.id1",
+          "-Dosgi.bundles.defaultStartLevel=4",
+          "-Declipse.product=org.eclipse.jdt.ls.core.product",
+          "-Dlog.protocol=true",
+          "-Dlog.level=ALL",
+          "-Xmx1g",
+          "--add-modules=ALL-SYSTEM",
+          "--add-opens",
+          "java.base/java.util=ALL-UNNAMED",
+          "--add-opens",
+          "java.base/java.lang=ALL-UNNAMED",
+          "-jar",
+          vim.fn.glob(jdtls_base .. '/plugins/org.eclipse.equinox.launcher_*.jar'),
+          "-configuration",
+          jdtls_base .. "/config_mac_arm",
+          "-data",
+          workspace_dir,
+        },
         full_cmd = function(opts)
           local fname = vim.api.nvim_buf_get_name(0)
           local root_dir = opts.root_dir(fname)
           local project_name = opts.project_name(root_dir)
           local cmd = vim.deepcopy(opts.cmd)
-          if project_name then
-            vim.list_extend(cmd, {
-              "-configuration",
-              opts.jdtls_config_dir(project_name),
-              "-data",
-              opts.jdtls_workspace_dir(project_name),
-            })
-          end
           return cmd
         end,
 
