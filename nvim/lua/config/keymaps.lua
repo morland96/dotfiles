@@ -74,7 +74,7 @@ else
 
   -- Bookmarks
   local bm = require("telescope").extensions.vim_bookmarks
-  map(nx, "<Leader><enter>", bm.all, { desc = "List Bookmarks" })
+  -- map(nx, "<Leader><enter>", bm.all, { desc = "List Bookmarks" })
   map(nx, "<Leader>mm", "<Cmd>BookmarkToggle<CR>", { desc = "Toggle Bookmark" })
   map(nx, "<Leader>mi", "<Cmd>BookmarkAnnotate<CR>", { desc = "Bookmark Annotate" })
   map(nx, "<Leader>mn", "<Cmd>BookmarkNext<CR>", { desc = "Next Bookmark" })
@@ -84,22 +84,22 @@ else
   map(nx, "<Leader>mx", "<Cmd>BookmarkClearAll<CR>", { desc = "Clear All Bookmarks" })
 
   -- Harpoon
-  local h_ui = require("harpoon.ui")
-  local h_m = require("harpoon.mark")
-  map("n", "<Leader><enter>", h_ui.toggle_quick_menu, { desc = "Harpoon Menu" })
-  map("n", "<Leader>hh", h_ui.toggle_quick_menu, { desc = "Harpoon Menu" })
-  map("n", "<Leader>hl", "<cmd>Telescope harpoon marks<cr>", { desc = "Harpoon Menu" })
-  map("n", "<Leader>ha", h_m.add_file, { desc = "Harpoon Add File" })
-  map("n", "<Leader>hd", h_m.rm_file, { desc = "Harpoon Delete File" })
-  map("n", "<Leader>hn", h_ui.nav_next, { desc = "Harpoon Next File" })
-  map("n", "<Leader>hp", h_ui.nav_prev, { desc = "Harpoon Previous File" })
-  map("n", "<C-1>", "<cmd> lua require('harpoon.ui').nav_file(1)<cr>", { desc = "file 1" })
-  map("n", "<C-2>", "<cmd> lua require('harpoon.ui').nav_file(2)<cr>", { desc = "file 2" })
-  map("n", "<C-3>", "<cmd> lua require('harpoon.ui').nav_file(3)<cr>", { desc = "file 3" })
-  map("n", "gh", h_ui.nav_next, { desc = "Harpoon next file" })
-  map("n", "gl", h_ui.nav_prev, { desc = "Harpoon previous file" })
-  map("n", "<D-p>", h_ui.nav_next)
-  map("n", "<D-n>", h_ui.nav_prev)
+  -- local h_ui = require("harpoon.ui")
+  -- local h_m = require("harpoon.mark")
+  -- map("n", "<Leader><enter>", h_ui.toggle_quick_menu, { desc = "Harpoon Menu" })
+  -- map("n", "<Leader>hh", h_ui.toggle_quick_menu, { desc = "Harpoon Menu" })
+  -- map("n", "<Leader>hl", "<cmd>Telescope harpoon marks<cr>", { desc = "Harpoon Menu" })
+  -- map("n", "<Leader>ha", h_m.add_file, { desc = "Harpoon Add File" })
+  -- map("n", "<Leader>hd", h_m.rm_file, { desc = "Harpoon Delete File" })
+  -- map("n", "<Leader>hn", h_ui.nav_next, { desc = "Harpoon Next File" })
+  -- map("n", "<Leader>hp", h_ui.nav_prev, { desc = "Harpoon Previous File" })
+  -- map("n", "<C-1>", "<cmd> lua require('harpoon.ui').nav_file(1)<cr>", { desc = "file 1" })
+  -- map("n", "<C-2>", "<cmd> lua require('harpoon.ui').nav_file(2)<cr>", { desc = "file 2" })
+  -- map("n", "<C-3>", "<cmd> lua require('harpoon.ui').nav_file(3)<cr>", { desc = "file 3" })
+  -- map("n", "gh", h_ui.nav_next, { desc = "Harpoon next file" })
+  -- map("n", "gl", h_ui.nav_prev, { desc = "Harpoon previous file" })
+  -- map("n", "<D-p>", h_ui.nav_next)
+  -- map("n", "<D-n>", h_ui.nav_prev)
 
   -- Refactor
   map("n", "<Leader>rr", vim.lsp.buf.rename, { desc = "Rename" })

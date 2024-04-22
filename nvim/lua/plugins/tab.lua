@@ -6,6 +6,7 @@ return {
     keys = function()
       return {}
     end,
+    dependencies = { "rafamadriz/friendly-snippets" },
   },
   -- then: use <tab> and <s-tab> to navigate through popup menu
   {

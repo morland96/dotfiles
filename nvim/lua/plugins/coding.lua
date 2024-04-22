@@ -4,12 +4,6 @@ return {
     "neovim/nvim-lspconfig",
   },
   {
-    "simrat39/symbols-outline.nvim",
-    cmd = "SymbolsOutline",
-    keys = { { "<leader>cS", "<cmd>SymbolsOutline<cr>", desc = "Symbols Outline" } },
-    config = true,
-  },
-  {
     "zbirenbaum/copilot.lua",
     enabled = true,
     cmd = "Copilot",

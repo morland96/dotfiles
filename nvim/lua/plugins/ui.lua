@@ -1,3 +1,4 @@
+local Config = require("lazyvim.config")
 return {
   -- Change the window picker's behavior to use floating windows
   {
@@ -74,22 +75,86 @@ return {
   },
   {
     "ThePrimeagen/harpoon",
+    branch = "harpoon2",
     dependencies = {
       "nvim-lua/plenary.nvim",
       "nvim-telescope/telescope.nvim",
     },
-    config = function()
-      require("harpoon").setup({
-        menu = {
-          width = vim.api.nvim_win_get_width(0) - 40,
+    opts = function(_, opts)
+      opts.menu = {
+        width = vim.api.nvim_win_get_width(0) - 4,
+      }
+      opts.settings = {
+        save_on_toggle = true,
+        sync_on_ui_close = true
+      }
+    end,
+    keys = function()
+      local conf = require("telescope.config").values
+      local function toggle_telescope(harpoon_files)
+        local file_paths = {}
+        for _, item in ipairs(harpoon_files.items) do
+          table.insert(file_paths, item.value)
+        end
+
+        require("telescope.pickers")
+          .new({}, {
+            prompt_title = "Harpoon",
+            finder = require("telescope.finders").new_table({
+              results = file_paths,
+            }),
+            previewer = conf.file_previewer({}),
+            sorter = conf.generic_sorter({}),
+          })
+          :find()
+      end
+      local harpoon = require("harpoon")
+      local keys = {
+        {
+          "<leader>ha",
+          function()
+            require("harpoon"):list():add()
+          end,
+          desc = "Harpoon Add",
         },
-        global_settings = {
-          save_on_toggle = false,
-          save_on_change = true,
+        {
+          "gh",
+          function()
+            require("harpoon"):list():next()
+          end,
         },
-      })
-      require("telescope").load_extension("harpoon")
-      vim.cmd("autocmd FileType harpoon setlocal wrap")
+        {
+          "gl",
+          function()
+            require("harpoon"):list():prev()
+          end,
+        },
+        {
+          "<leader>hl",
+          function()
+            toggle_telescope(harpoon:list())
+          end,
+          desc = "Harpoon Add",
+        },
+        {
+          "<leader><enter>",
+          function()
+            harpoon.ui:toggle_quick_menu(harpoon:list())
+          end,
+          desc = "Harpoon Quick Menu",
+        },
+      }
+
+      for i = 1, 5 do
+        table.insert(keys, {
+          "<leader>" .. i,
+          function()
+            require("harpoon"):list():select(i)
+          end,
+          desc = "Harpoon to File " .. i,
+        })
+      end
+      return keys
     end,
   },
   {
@@ -127,9 +192,9 @@ return {
       views = {
         mini = {
           timeout = 1000,
-          size = { width = "auto", height = "5%"},
+          size = { width = "auto", height = "5%" },
         },
-      }
+      },
     },
   },
   -- Kitty integration
@@ -170,5 +235,189 @@ return {
         },
       }
     end,
-  }
+  },
+  {
+    "stevearc/aerial.nvim",
+    event = "LazyFile",
+    opts = function()
+      local icons = vim.deepcopy(Config.icons.kinds)
+
+      -- HACK: fix lua's weird choice for `Package` for control
+      -- structures like if/else/for/etc.
+      icons.lua = { Package = icons.Control }
+
+      ---@type table<string, string[]>|false
+      local filter_kind = false
+      if Config.kind_filter then
+        filter_kind = assert(vim.deepcopy(Config.kind_filter))
+        filter_kind._ = filter_kind.default
+        filter_kind.default = nil
+      end
+
+      local opts = {
+        attach_mode = "global",
+        backends = { "lsp", "treesitter", "markdown", "man" },
+        show_guides = true,
+        layout = {
+          resize_to_content = false,
+          win_opts = {
+            winhl = "Normal:NormalFloat,FloatBorder:NormalFloat,SignColumn:SignColumnSB",
+            signcolumn = "yes",
+            statuscolumn = " ",
+          },
+        },
+        icons = icons,
+        filter_kind = filter_kind,
+      -- stylua: ignore
+      guides = {
+        mid_item   = "├╴",
+        last_item  = "└╴",
+        nested_top = "│ ",
+        whitespace = "  ",
+      },
+      }
+      return opts
+    end,
+    keys = {
+      { "<leader>cS", "<cmd>AerialToggle<cr>", desc = "Aerial (Symbols)" },
+    },
+  },
+  {
+    "folke/trouble.nvim",
+    branch = "dev",
+    keys = {
+      { "<leader>xx", "<cmd>Trouble diagnostics toggle<cr>", desc = "Diagnostics (Trouble)" },
+      { "<leader>xX", "<cmd>Trouble diagnostics toggle filter.buf=0<cr>", desc = "Buffer Diagnostics (Trouble)" },
+      {
+        "gR",
+        "<cmd>Trouble lsp toggle focus=false win.position=bottom<cr>",
+        desc = "LSP references/definitions/... (Trouble)",
+      },
+      { "<leader>xL", "<cmd>Trouble loclist toggle<cr>", desc = "Location List (Trouble)" },
+      { "<leader>xQ", "<cmd>Trouble qflist toggle<cr>", desc = "Quickfix List (Trouble)" },
+      {
+        "[q",
+        function()
+          if require("trouble").is_open() then
+            require("trouble").prev({ skip_groups = true, jump = true })
+          else
+            local ok, err = pcall(vim.cmd.cprev)
+            if not ok then
+              vim.notify(err, vim.log.levels.ERROR)
+            end
+          end
+        end,
+        desc = "Previous Trouble/Quickfix Item",
+      },
+    },
+  },
+  {
+    "folke/edgy.nvim",
+    event = "VeryLazy",
+    keys = {
+      {
+        "<leader>ue",
+        function()
+          require("edgy").toggle()
+        end,
+        desc = "Edgy Toggle",
+      },
+    -- stylua: ignore
+    { "<leader>uE", function() require("edgy").select() end, desc = "Edgy Select Window" },
+    },
+    opts = function()
+      local opts = {
+        animation = { enabled = false },
+        bottom = {
+          {
+            ft = "toggleterm",
+            size = { height = 0.4 },
+            filter = function(buf, win)
+              return vim.api.nvim_win_get_config(win).relative == ""
+            end,
+          },
+          {
+            ft = "noice",
+            size = { height = 0.4 },
+            filter = function(buf, win)
+              return vim.api.nvim_win_get_config(win).relative == ""
+            end,
+          },
+          {
+            ft = "lazyterm",
+            title = "LazyTerm",
+            size = { height = 0.4 },
+            filter = function(buf)
+              return not vim.b[buf].lazyterm_cmd
+            end,
+          },
+          "Trouble",
+          { ft = "qf", title = "QuickFix" },
+          {
+            ft = "help",
+            size = { height = 20 },
+            -- don't open help files in edgy that we're editing
+            filter = function(buf)
+              return vim.bo[buf].buftype == "help"
+            end,
+          },
+          { title = "Spectre", ft = "spectre_panel", size = { height = 0.4 } },
+          { title = "Neotest Output", ft = "neotest-output-panel", size = { height = 15 } },
+        },
+        left = {
+          {
+            title = "Neo-Tree",
+            ft = "neo-tree",
+            filter = function(buf)
+              return vim.b[buf].neo_tree_source == "filesystem"
+            end,
+            pinned = true,
+            open = function()
+              require("neo-tree.command").execute({ dir = LazyVim.root() })
+            end,
+            size = { height = 0.5 },
+          },
+          { title = "Neotest Summary", ft = "neotest-summary" },
+          {
+            title = "Neo-Tree Git",
+            ft = "neo-tree",
+            filter = function(buf)
+              return vim.b[buf].neo_tree_source == "git_status"
+            end,
+            pinned = true,
+            open = "Neotree position=right git_status",
+          },
+          {
+            title = "Neo-Tree Buffers",
+            ft = "neo-tree",
+            filter = function(buf)
+              return vim.b[buf].neo_tree_source == "buffers"
+            end,
+            pinned = true,
+            open = "Neotree position=top buffers",
+          },
+          "neo-tree",
+        },
+        keys = {
+          -- increase width
+          ["<c-Right>"] = function(win)
+            win:resize("width", 2)
+          end,
+          -- decrease width
+          ["<c-Left>"] = function(win)
+            win:resize("width", -2)
+          end,
+          -- increase height
+          ["<c-Up>"] = function(win)
+            win:resize("height", 2)
+          end,
+          -- decrease height
+          ["<c-Down>"] = function(win)
+            win:resize("height", -2)
+          end,
+        },
+      }
+      return opts
+    end,
+  },
 }
