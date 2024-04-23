@@ -139,6 +139,8 @@ return {
         "vim",
         "vimdoc",
         "yaml",
+        "rust",
+        "ron"
       },
       textobjects = {
         swap = {
