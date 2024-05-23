@@ -159,6 +159,7 @@ return {
   },
   {
     "echasnovski/mini.indentscope",
+    event = "LazyFile",
     opts = {
       draw = {
         delay = 50,
@@ -166,6 +167,7 @@ return {
           return 10
         end,
       },
+      try_as_border = true
     },
   },
   -- Noice
@@ -296,7 +298,7 @@ return {
       return opts
     end,
     keys = {
-      { "<leader>cS", "<cmd>AerialToggle<cr>", desc = "Aerial (Symbols)" },
+      { "<leader>cS", "<cmd>AerialToggle! right<cr>", desc = "Aerial (Symbols)" },
     },
   },
   {

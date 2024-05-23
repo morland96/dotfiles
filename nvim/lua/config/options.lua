@@ -4,3 +4,4 @@
 -- vim.lsp.set_log_level("debug")
 vim.opt.laststatus = 3
 vim.opt.splitkeep = "screen"
+vim.g.lazyvim_python_lsp = "basedpyright"

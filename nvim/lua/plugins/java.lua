@@ -31,6 +31,7 @@ return {
         jdtls = {
           settings = {
             java = {
+              inlayHints = { parameterNames = { enabled = "all" } },
               format = {
                 settings = {
                   url = "~/.config/style/eclipse-java-google-style.xml",
@@ -40,7 +41,7 @@ return {
                 runtimes = {
                   {
                     name = "JavaSE-11",
-                    path = "/Users/mmeng/.asdf/installs/java/temurin-11.0.21+9",
+                    path = "/Users/mmeng/.asdf/installs/java/corretto-17.0.10.7.1/bin/java",
                   },
                 },
               },
