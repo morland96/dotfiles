@@ -37,14 +37,14 @@ return {
                   url = "~/.config/style/eclipse-java-google-style.xml",
                 },
               },
-              configuration = {
-                runtimes = {
-                  {
-                    name = "JavaSE-11",
-                    path = "/Users/mmeng/.asdf/installs/java/corretto-17.0.10.7.1/bin/java",
-                  },
-                },
-              },
+              -- configuration = {
+              --   runtimes = {
+              --     {
+              --       name = "JavaSE-17",
+              --       path = "/Users/mmeng/.asdf/installs/java/corretto-17.0.10.7.1/bin/java",
+              --     },
+              --   },
+              -- },
             },
           },
         },
@@ -59,7 +59,7 @@ return {
           "-Declipse.product=org.eclipse.jdt.ls.core.product",
           "-Dlog.protocol=true",
           "-Dlog.level=ALL",
-          "-Xmx1g",
+          "-Xmx3g",
           "--add-modules=ALL-SYSTEM",
           "--add-opens",
           "java.base/java.util=ALL-UNNAMED",
