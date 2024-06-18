@@ -1,23 +1,30 @@
 return {
   {
     "linux-cultist/venv-selector.nvim",
-    dependencies = { "neovim/nvim-lspconfig", "nvim-telescope/telescope.nvim", "mfussenegger/nvim-dap-python" },
-    opts = function(_, opts)
-      if require("lazyvim.util").has("nvim-dap-python") then
-        opts.dap_enabled = true
-      end
-      return vim.tbl_deep_extend("force", opts, {
-        name = {
-          "venv",
-          ".venv",
-        },
-        parents = 0
-      })
+    dependencies = {
+      "neovim/nvim-lspconfig",
+      "mfussenegger/nvim-dap",
+      "mfussenegger/nvim-dap-python", --optional
+      { "nvim-telescope/telescope.nvim", branch = "0.1.x", dependencies = { "nvim-lua/plenary.nvim" } },
+    },
+    lazy = false,
+    branch = "regexp", -- This is the regexp branch, use this for the new version
+    config = function()
+      require("venv-selector").setup()
     end,
-    event = "VeryLazy", -- Optional: needed only if you want to type `:VenvSelect` without a keymapping
     keys = {
-      -- Keymap to open VenvSelector to pick a venv.
       { "<leader>cv", "<cmd>VenvSelect<cr>" },
     },
+  },
+  {
+    "mfussenegger/nvim-dap-python",
+  -- stylua: ignore
+  keys = {
+    { "<leader>dPt", function() require('dap-python').test_method() end, desc = "Debug Method", ft = "python" },
+    { "<leader>dPc", function() require('dap-python').test_class() end, desc = "Debug Class", ft = "python" },
+  },
+    config = function()
+      require("dap-python").setup(LazyVim.get_pkg_path("debugpy", "/venv/bin/python"))
+    end,
   },
 }
