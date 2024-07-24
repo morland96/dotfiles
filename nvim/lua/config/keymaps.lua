@@ -5,6 +5,13 @@ vim.keymap.del('n', '<leader>p', {})
 local map = vim.keymap.set
 local nx = { "n", "x" }
 
+  -- groups
+  local wk = require("which-key")
+  wk.add({
+        { "<leader>p", group = "+project" },
+        { "<leader>r", group = "+refactoring" },
+  })
+
 map("n", "<Leader>wh", "<C-w>h", { desc = "Go to left window" })
 map("n", "<Leader>wj", "<C-w>j", { desc = "Go to bottom window" })
 map("n", "<Leader>wk", "<C-w>k", { desc = "Go to top window" })
@@ -110,21 +117,15 @@ else
     callback = function(args)
       local client = vim.lsp.get_client_by_id(args.data.client_id)
       local wk = require("which-key")
-      wk.register({
-        ["<leader>clr"] = { vim.lsp.codelens.refresh, "Refresh CodeLens" },
-        ["<leader>cla"] = { vim.lsp.codelens.run, "Run CodeLens" },
-        ["<leader>cll"] = { "<cmd>LspInfo<cr>", "LSP Info" },
-      }, {
-        mode = "n",
-        buffer = args.buf,
+      wk.add({
+        {"<leader>clr", vim.lsp.codelens.refresh, desc = "Refresh CodeLens", buffer = args.buf},
+        {"<leader>cla", vim.lsp.codelens.run, desc = "Run CodeLens", buffer = args.buf},
+        {"<leader>cll", "<cmd>LspInfo<cr>", desc = "LSP Info", buffer = args.buf},
       })
       if client and client.name == "jdtls" then
-        wk.register({
-          ["<leader>ct"] = { require("jdtls.tests").goto_subjects, "Goto Subjects" },
-          ["<leader>cI"] = { require("jdtls").super_implementation, "Goto Super" },
-        }, {
-          mode = "n",
-          buffer = args.buf,
+        wk.add({
+          {"<leader>ct", require("jdtls.tests").goto_subjects, desc = "Goto Subjects", buffer = args.buf},
+          {"<leader>cI", require("jdtls").super_implementation, desc = "Goto Super", buffer = args.buf},
         })
       end
     end,

@@ -152,6 +152,7 @@ return {
         "typescript",
         "vim",
         "yaml",
+        "swift"
       },
     },
   },

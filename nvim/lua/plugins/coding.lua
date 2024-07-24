@@ -4,7 +4,7 @@ return {
     "neovim/nvim-lspconfig",
     opts = {
       inlay_hints = { enabled = true },
-    }
+    },
   },
   {
     "zbirenbaum/copilot.lua",
@@ -79,17 +79,6 @@ return {
       end
     end,
   },
-  {
-    "folke/which-key.nvim",
-    opts = function(_, opts)
-      opts.defaults = vim.tbl_extend("force", opts.defaults, {
-        ["<leader>r"] = { name = "+refactoring" },
-        ["<leader>p"] = { name = "+project" },
-        -- ["<leader>d"] = { name = "+debug" },
-        -- ["<leader>da"] = { name = "+adapters" },
-      })
-    end,
-  },
   -- Surround
   {
     "echasnovski/mini.surround",
@@ -143,7 +132,7 @@ return {
         "vimdoc",
         "yaml",
         "rust",
-        "ron"
+        "ron",
       },
       textobjects = {
         swap = {

@@ -1,6 +1,5 @@
 local Config = require("lazyvim.config")
 return {
-  -- Change the window picker's behavior to use floating windows
   {
     "nvim-neo-tree/neo-tree.nvim",
     dependencies = {
@@ -9,6 +8,7 @@ return {
       event = "VeryLazy",
       version = "2.*",
       config = function()
+        -- Change the window picker's behavior to use floating windows
         require("window-picker").setup({
           hint = "floating-big-letter",
           autoselect_one = true,
@@ -26,6 +26,10 @@ return {
         })
       end,
     },
+    -- opts = {
+    --   -- prevent neo-tree from opening files in edgy windows
+    --   open_files_do_not_replace_types = { "terminal", "Trouble", "qf", "edgy" },
+    -- },
   },
   -- File Browser
   {
@@ -122,19 +126,21 @@ return {
           function()
             require("harpoon"):list():next()
           end,
+          desc = "Harpoon left"
         },
         {
           "gl",
           function()
             require("harpoon"):list():prev()
           end,
+          desc = "Harpoon right",
         },
         {
           "<leader>hl",
           function()
             toggle_telescope(harpoon:list())
           end,
-          desc = "Harpoon Add",
+          desc = "Harpoon list",
         },
         {
           "<leader><enter>",
@@ -167,10 +173,10 @@ return {
           return 10
         end,
       },
-      try_as_border = true
+      try_as_border = true,
     },
   },
-  -- Noice
+  --  Noice
   {
     "folke/noice.nvim",
     opts = {
@@ -341,11 +347,11 @@ return {
         desc = "Edgy Toggle",
       },
     -- stylua: ignore
-    { "<leader>uE", function() require("edgy").select() end, desc = "Edgy Select Window" },
+      { "<leader>uE", function() require("edgy").select() end, desc = "Edgy Select Window" },
     },
     opts = function()
       local opts = {
-        animation = { enabled = false },
+        animate = { enabled = false },
         bottom = {
           {
             ft = "toggleterm",
@@ -381,6 +387,10 @@ return {
           },
           { title = "Spectre", ft = "spectre_panel", size = { height = 0.4 } },
           { title = "Neotest Output", ft = "neotest-output-panel", size = { height = 15 } },
+        },
+        left = { "neo-tree" },
+        right = {
+          { title = "Grug Far", ft = "grug-far", size = { width = 0.4 } },
         },
         -- left = {
         --   {
