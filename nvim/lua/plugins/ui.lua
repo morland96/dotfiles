@@ -1,6 +1,12 @@
 local Config = require("lazyvim.config")
 return {
   {
+    "mrjones2014/smart-splits.nvim",
+    opts = {
+      ignored_filetypes = {},
+    },
+  },
+  {
     "nvim-neo-tree/neo-tree.nvim",
     dependencies = {
       "s1n7ax/nvim-window-picker",
@@ -30,6 +36,47 @@ return {
     --   -- prevent neo-tree from opening files in edgy windows
     --   open_files_do_not_replace_types = { "terminal", "Trouble", "qf", "edgy" },
     -- },
+  },
+  ---@type LazySpec
+  {
+    "mikavilpas/yazi.nvim",
+    event = "VeryLazy",
+    keys = {
+      -- 👇 in this section, choose your own keymappings!
+      {
+        "<leader>.",
+        function()
+          require("yazi").yazi()
+        end,
+        desc = "Open the file manager",
+      },
+      {
+        -- Open in the current working directory
+        "<leader>pw",
+        function()
+          require("yazi").yazi(nil, vim.fn.getcwd())
+        end,
+        desc = "Open the file manager in nvim's working directory",
+      },
+      {
+        "<c-up>",
+        function()
+          -- NOTE: requires a version of yazi that includes
+          -- https://github.com/sxyazi/yazi/pull/1305 from 2024-07-18
+          require("yazi").toggle()
+        end,
+        desc = "Resume the last yazi session",
+      },
+    },
+    ---@type YaziConfig
+    opts = {
+      -- if you want to open yazi instead of netrw, see below for more info
+      open_for_directories = false,
+
+      -- enable these if you are using the latest version of yazi
+      -- use_ya_for_events_reading = true,
+      -- use_yazi_client_id_flag = true,
+    },
   },
   -- File Browser
   {
@@ -126,7 +173,7 @@ return {
           function()
             require("harpoon"):list():next()
           end,
-          desc = "Harpoon left"
+          desc = "Harpoon left",
         },
         {
           "gl",

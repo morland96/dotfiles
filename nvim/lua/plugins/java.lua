@@ -1,19 +1,21 @@
+local config = require "lazyvim.config"
 return {
   {
     "mfussenegger/nvim-jdtls",
     dependencies = { "folke/which-key.nvim" },
     ft = { "java" },
     opts = function()
-      local root_dir = require("jdtls.setup").find_root({ ".git" })
+      local root_dir = require("jdtls.setup").find_root({ ".git", "pipelines-config.json" })
       local project_name = root_dir and vim.fs.basename(root_dir)
       local workspace_dir = vim.fn.stdpath("cache") .. "/jdtls/" .. project_name .. "/workspace"
       local home = os.getenv("HOME")
       local jdtls_base = home .. "/.local/share/nvim/mason/packages/jdtls"
+      local wk = require("which-key")
       return {
         -- How to find the root dir for a given filename. The default comes from
         -- lspconfig which provides a function specifically for java projects.
         root_dir = function(fname)
-          return require("jdtls.setup").find_root({ ".git" })
+          return require("jdtls.setup").find_root({ ".git", "pipelines-config.json" })
         end,
 
         -- How to find the project name for a given root dir.
@@ -83,6 +85,16 @@ return {
         -- These depend on nvim-dap, but can additionally be disabled by setting false here.
         dap = { hotcodereplace = "auto", config_overrides = {} },
         test = true,
+        on_attach = function (args)
+          wk.add({
+            {
+              mode = "n",
+              buffer = args.buf,
+              {
+              }
+            }
+          })
+        end
       }
     end,
   },
@@ -93,7 +105,7 @@ return {
       vim.cmd("call glaive#Install()")
       -- Java FileType
       vim.cmd([[
-        Glaive codefmt google_java_executable="java -jar /Users/mmeng/.config/style/google-java-format-1.18.0-all-deps.jar"
+        Glaive codefmt google_java_executable="java -jar /Users/mmeng/.config/style/google-java-format-1.23.0-all-deps.jar --skip-reflowing-long-strings"
         autocmd FileType java AutoFormatBuffer google-java-format
       ]])
     end,

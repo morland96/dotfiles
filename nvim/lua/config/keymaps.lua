@@ -39,11 +39,24 @@ else
   map("n", "<C-S-k>", "<C-w>+", { desc = "Increase window height" })
   map("n", "<C-S-l>", "<C-w>>", { desc = "Increase window width" })
 
+  -- for example `10<A-h>` will `resize_left` by `(10 * config.default_amount)`
+  map('n', '<A-h>', require('smart-splits').resize_left)
+  map('n', '<A-j>', require('smart-splits').resize_down)
+  map('n', '<A-k>', require('smart-splits').resize_up)
+  map('n', '<A-l>', require('smart-splits').resize_right)
+  -- moving between splits
+  map('n', '<C-h>', require('smart-splits').move_cursor_left)
+  map('n', '<C-j>', require('smart-splits').move_cursor_down)
+  map('n', '<C-k>', require('smart-splits').move_cursor_up)
+  map('n', '<C-l>', require('smart-splits').move_cursor_right)
+  map('n', '<C-\\>', require('smart-splits').move_cursor_previous)
   -- Kitty
-  map(nx, "<C-h>", "<cmd>:KittyNavigateLef<cr>")
-  map(nx, "<C-j>", "<cmd>:KittyNavigateDown<cr>")
-  map(nx, "<C-k>", "<cmd>:KittyNavigateUp<cr>")
-  map(nx, "<C-l>", "<cmd>:KittyNavigateRight<cr>")
+  -- map(nx, "<C-h>", "<cmd>:KittyNavigateLef<cr>")
+  -- map(nx, "<C-j>", "<cmd>:KittyNavigateDown<cr>")
+  -- map(nx, "<C-k>", "<cmd>:KittyNavigateUp<cr>")
+  -- map(nx, "<C-l>", "<cmd>:KittyNavigateRight<cr>")
+
+
 
   -- Telescope
   local telescope_builtin = require("telescope.builtin")
