@@ -1,6 +1,6 @@
 # yazi.toml
 [manager]
-ratio         = [ 1, 2, 4 ]
+ratio          = [ 1, 2, 4 ]
 sort_by        = "modified"
 sort_sensitive = true
 sort_reverse   = true
