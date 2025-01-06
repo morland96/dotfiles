@@ -40,10 +40,10 @@ else
   map("n", "<C-S-l>", "<C-w>>", { desc = "Increase window width" })
 
   -- for example `10<A-h>` will `resize_left` by `(10 * config.default_amount)`
-  map('n', '<A-h>', require('smart-splits').resize_left)
-  map('n', '<A-j>', require('smart-splits').resize_down)
-  map('n', '<A-k>', require('smart-splits').resize_up)
-  map('n', '<A-l>', require('smart-splits').resize_right)
+  map("n", "<A-h>", require("smart-splits").resize_left)
+  map("n", "<A-j>", require("smart-splits").resize_down)
+  map("n", "<A-k>", require("smart-splits").resize_up)
+  map("n", "<A-l>", require("smart-splits").resize_right)
   -- moving between splits
   map('n', '<C-h>', require('smart-splits').move_cursor_left)
   map('n', '<C-j>', require('smart-splits').move_cursor_down)
