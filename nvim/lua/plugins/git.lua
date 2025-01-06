@@ -59,8 +59,11 @@ return {
       "ibhagwan/fzf-lua", -- optional
     },
     config = true,
-    integrations = {
-      fzf_lua = true,
+    opts = {
+      integrations = {
+        telescope = false,
+        fzf_lua = true,
+      },
     },
     keys = {
       -- Diffview
