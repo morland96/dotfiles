@@ -5,12 +5,12 @@ vim.keymap.del('n', '<leader>p', {})
 local map = vim.keymap.set
 local nx = { "n", "x" }
 
-  -- groups
-  local wk = require("which-key")
-  wk.add({
-        { "<leader>p", group = "+project" },
-        { "<leader>r", group = "+refactoring" },
-  })
+-- groups
+local wk = require("which-key")
+wk.add({
+  { "<leader>p", group = "+project" },
+  { "<leader>r", group = "+refactoring" },
+})
 
 map("n", "<Leader>wh", "<C-w>h", { desc = "Go to left window" })
 map("n", "<Leader>wj", "<C-w>j", { desc = "Go to bottom window" })
