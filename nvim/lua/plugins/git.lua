@@ -71,7 +71,7 @@ return {
         "<leader>gd",
         "<cmd>DiffviewOpen<CR>",
         desc = "Diffview",
-      }
+      },
     },
   },
 }
