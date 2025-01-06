@@ -55,7 +55,7 @@ return {
         -- if the Python wrapper script doesn't suffice.
         -- Using $JAVA_17_HOME
         cmd = {
-          "/Users/mmeng/.asdf/installs/java/corretto-17.0.10.7.1/bin/java",
+          "/Users/mmeng/.local/share/mise/installs/java/corretto-17.0.10.7.1/bin/java",
           "-Declipse.application=org.eclipse.jdt.ls.core.id1",
           "-Dosgi.bundles.defaultStartLevel=4",
           "-Declipse.product=org.eclipse.jdt.ls.core.product",

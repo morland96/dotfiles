@@ -57,13 +57,15 @@ else
   -- map(nx, "<C-l>", "<cmd>:KittyNavigateRight<cr>")
 
 
+  -- fzf lua
+  --  map("n", "<Leader>pp", "<Leader>fp", { desc = "Find Projects" })
+  map("n", "<Leader>pf", LazyVim.pick("files"), { desc = "Find Project Files" })
+  map("n", "<Leader>pg", LazyVim.pick("live_grep"), { desc = "Grep Project Files" })
+
+  map("n", "<Leader>bb", "<cmd>FzfLua buffers sort_mru=true sort_lastused=true<cr>", { desc = "Find Buffers" })
 
   -- Telescope
   local telescope_builtin = require("telescope.builtin")
-  map("n", "<Leader>pp", "<Cmd>Telescope projects<CR>", { desc = "Find Projects" })
-  map("n", "<Leader>pf", "<Cmd>Telescope find_files<CR>", { desc = "Find Project Files" })
-  map("n", "<Leader>p.", "<Cmd>Telescope file_browser<CR>", { desc = "Browse Project Files" })
-  map("n", "<Leader>pg", telescope_builtin.live_grep, { desc = "Grep Project Files" })
 
   map("n", "<Leader>bb", "<Cmd>Telescope buffers<CR>", { desc = "Find Buffers" })
 
@@ -82,15 +84,13 @@ else
   map(nx, "<M-S-f>", format, { desc = "Format File" })
 
   -- Jump
-  map("n", "<Leader>js", telescope_builtin.treesitter, { desc = "Jump treesitter" })
+  map("n", "<Leader>js", "<cmd>FzfLua treesitter<cr>", { desc = "Jump treesitter" })
 
   -- Search
-  -- map("n", "<Leader>ss", telescope_builtin.lsp_document_symbols, { desc = "Search symbols in file" })
-  map("n", "<Leader>s.", telescope_builtin.builtin, { desc = "Telescope search" })
-  -- map("n", "<Leader>sS", telescope_builtin.lsp_dynamic_workspace_symbols, { desc = "Search symbols in workspace" })
+  map("n", "<Leader>s.", "<cmd>FzfLua<cr>", { desc = "FzfLua search" })
 
   -- Goto
-  map("n", "<Leader>ci", telescope_builtin.lsp_implementations, { desc = "Goto Implementation" })
+  map("n", "<Leader>ci", "<cmd>FzfLua lsp_implementations<cr>", { desc = "Goto Implementation" })
 
   -- Bookmarks
   local bm = require("telescope").extensions.vim_bookmarks
@@ -102,24 +102,6 @@ else
   map(nx, "<Leader>ml", bm.all, { desc = "List Bookmarks" })
   map(nx, "<Leader>mc", "<Cmd>BookmarkClear<CR>", { desc = "Clear Bookmarks" })
   map(nx, "<Leader>mx", "<Cmd>BookmarkClearAll<CR>", { desc = "Clear All Bookmarks" })
-
-  -- Harpoon
-  -- local h_ui = require("harpoon.ui")
-  -- local h_m = require("harpoon.mark")
-  -- map("n", "<Leader><enter>", h_ui.toggle_quick_menu, { desc = "Harpoon Menu" })
-  -- map("n", "<Leader>hh", h_ui.toggle_quick_menu, { desc = "Harpoon Menu" })
-  -- map("n", "<Leader>hl", "<cmd>Telescope harpoon marks<cr>", { desc = "Harpoon Menu" })
-  -- map("n", "<Leader>ha", h_m.add_file, { desc = "Harpoon Add File" })
-  -- map("n", "<Leader>hd", h_m.rm_file, { desc = "Harpoon Delete File" })
-  -- map("n", "<Leader>hn", h_ui.nav_next, { desc = "Harpoon Next File" })
-  -- map("n", "<Leader>hp", h_ui.nav_prev, { desc = "Harpoon Previous File" })
-  -- map("n", "<C-1>", "<cmd> lua require('harpoon.ui').nav_file(1)<cr>", { desc = "file 1" })
-  -- map("n", "<C-2>", "<cmd> lua require('harpoon.ui').nav_file(2)<cr>", { desc = "file 2" })
-  -- map("n", "<C-3>", "<cmd> lua require('harpoon.ui').nav_file(3)<cr>", { desc = "file 3" })
-  -- map("n", "gh", h_ui.nav_next, { desc = "Harpoon next file" })
-  -- map("n", "gl", h_ui.nav_prev, { desc = "Harpoon previous file" })
-  -- map("n", "<D-p>", h_ui.nav_next)
-  -- map("n", "<D-n>", h_ui.nav_prev)
 
   -- Refactor
   map("n", "<Leader>rr", vim.lsp.buf.rename, { desc = "Rename" })

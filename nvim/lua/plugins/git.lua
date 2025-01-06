@@ -50,4 +50,25 @@ return {
       },
     },
   },
+  { "akinsho/git-conflict.nvim", version = "*", config = true },
+  {
+    "NeogitOrg/neogit",
+    dependencies = {
+      "nvim-lua/plenary.nvim", -- required
+      "sindrets/diffview.nvim", -- optional - Diff integration
+      "ibhagwan/fzf-lua", -- optional
+    },
+    config = true,
+    integrations = {
+      fzf_lua = true,
+    },
+    keys = {
+      -- Diffview
+      {
+        "<leader>gd",
+        "<cmd>DiffviewOpen<CR>",
+        desc = "Diffview",
+      }
+    },
+  },
 }

@@ -6,7 +6,7 @@ return {
   {
     "nvim-neotest/neotest",
     dependencies = {
-      "haydenmeade/neotest-jest",
+      "nvim-neotest/neotest-jest",
       "marilari88/neotest-vitest",
     },
     keys = {
@@ -26,7 +26,7 @@ return {
       -- },
       {
         "<leader>tw",
-        "<cmd>lua require('neotest').run.run({ jestCommand = 'jest --watch ' })<cr>",
+        "<cmd>lua require('neotest').run.run({ jestCommand = 'yarn test -- --watchAll' })<cr>",
         desc = "Run Watch",
       },
     },
@@ -34,9 +34,9 @@ return {
       table.insert(
         opts.adapters,
         require("neotest-jest")({
-          jestCommand = "yarn test",
+          jestCommand = "yarn test:ci",
           jestConfigFile = "jest.config.js",
-          env = { CI = true },
+          --env = { CI = true },
           cwd = function()
             return vim.fn.getcwd()
           end,

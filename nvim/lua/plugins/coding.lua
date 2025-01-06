@@ -16,81 +16,18 @@ return {
       panel = { enabled = false },
     },
   },
-  -- override nvim-cmp to use copilot and emoji
-  {
-    "nvim-cmp",
-    dependencies = {
-      "hrsh7th/cmp-emoji",
-      "zbirenbaum/copilot-cmp",
-      "onsails/lspkind.nvim",
-    },
-    ---@param opts cmp.ConfigSchema
-    opts = function(_, opts)
-      local cmp = require("cmp")
-      local lspkind = require("lspkind")
-      opts.sources = cmp.config.sources(vim.list_extend(opts.sources, { { name = "copilot" }, { name = "emoji" } }))
-      opts.mapping = {
-        ["<C-e>"] = cmp.mapping.abort(),
-        ["<Down>"] = cmp.mapping.abort(),
-        ["<Up>"] = cmp.mapping.abort(),
-        ["<C-j>"] = cmp.mapping.scroll_docs(4),
-        ["<C-k>"] = cmp.mapping.scroll_docs(-4),
-        ["<C-n>"] = cmp.mapping(cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }), { "i" }),
-        ["<C-p>"] = cmp.mapping(cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }), { "i" }),
-        ["<CR>"] = cmp.mapping.confirm({ select = true }),
-        ["<S-CR>"] = cmp.mapping.confirm({
-          behavior = cmp.ConfirmBehavior.Replace,
-          select = true,
-        }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-        ["<C-CR>"] = function(fallback)
-          cmp.abort()
-          fallback()
-        end,
-      }
-      opts.window = {
-        completion = cmp.config.window.bordered({
-          col_offset = -3,
-          side_padding = 0,
-          winhighlight = "Normal:Normal,FloatBorder:FloatBorder,CursorLine:Visual,Search:None",
-        }),
-        documentation = cmp.config.window.bordered({
-          winhighlight = "Normal:Normal,FloatBorder:FloatBorder,CursorLine:Visual,Search:None",
-        }),
-      }
-
-      opts.formatting.fields = { "kind", "abbr", "menu" }
-      opts.formatting.format = function(entry, vim_item)
-        local kind = lspkind.cmp_format({
-          mode = "symbol_text",
-          maxwidth = 50,
-        })(entry, vim_item)
-
-        local strings = vim.split(kind.kind, "%s", { trimempty = true })
-
-        if strings[1] ~= "Copilot" then
-          kind.kind = " " .. strings[1] .. " "
-          kind.menu = "    (" .. strings[2] .. ")"
-        else
-          kind.kind = " " .. vim.fn.nr2char(0xe708) .. " "
-          kind.menu = "    (" .. "copilot" .. ")"
-        end
-
-        return kind
-      end
-    end,
-  },
   -- Surround
   {
     "echasnovski/mini.surround",
     opts = {
       mappings = {
-        add = "<leader>csa",
-        delete = "<leader>csd",
-        find = "<leader>csf",
-        find_left = "<leader>csF",
-        highlight = "<leader>csh",
-        replace = "<leader>csr",
-        update_n_lines = "<leader>csn",
+        add = "gza",
+        delete = "gzd",
+        find = "gzf",
+        find_left = "gzF",
+        highlight = "gzh",
+        replace = "gzr",
+        update_n_lines = "gzn",
       },
     },
   },
