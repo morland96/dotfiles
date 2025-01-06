@@ -129,8 +129,8 @@ else
       })
       if client and client.name == "jdtls" then
         wk.add({
-          {"<leader>ct", require("jdtls.tests").goto_subjects, desc = "Goto Subjects", buffer = args.buf},
-          {"<leader>cI", require("jdtls").super_implementation, desc = "Goto Super", buffer = args.buf},
+          { "<leader>ct", require("jdtls.tests").goto_subjects, desc = "Goto Subjects", buffer = args.buf },
+          { "<leader>cI", require("jdtls").super_implementation, desc = "Goto Super", buffer = args.buf },
         })
       end
     end,
