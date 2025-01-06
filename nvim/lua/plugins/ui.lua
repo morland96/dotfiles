@@ -369,4 +369,10 @@ return {
       },
     },
   },
+  {
+    "ibhagwan/fzf-lua",
+    keys = {
+      { "<leader>gc", false }, -- prefer neogit
+    },
+  },
 }
