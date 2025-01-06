@@ -123,9 +123,9 @@ else
       local client = vim.lsp.get_client_by_id(args.data.client_id)
       local wk = require("which-key")
       wk.add({
-        {"<leader>clr", vim.lsp.codelens.refresh, desc = "Refresh CodeLens", buffer = args.buf},
-        {"<leader>cla", vim.lsp.codelens.run, desc = "Run CodeLens", buffer = args.buf},
-        {"<leader>cll", "<cmd>LspInfo<cr>", desc = "LSP Info", buffer = args.buf},
+        { "<leader>clr", vim.lsp.codelens.refresh, desc = "Refresh CodeLens", buffer = args.buf },
+        { "<leader>cla", vim.lsp.codelens.run, desc = "Run CodeLens", buffer = args.buf },
+        { "<leader>cll", "<cmd>LspInfo<cr>", desc = "LSP Info", buffer = args.buf },
       })
       if client and client.name == "jdtls" then
         wk.add({
