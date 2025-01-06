@@ -56,6 +56,16 @@ else
   -- map(nx, "<C-k>", "<cmd>:KittyNavigateUp<cr>")
   -- map(nx, "<C-l>", "<cmd>:KittyNavigateRight<cr>")
 
+  -- Git
+  local neogit = require("neogit")
+
+  map("n", "<Leader>gs", function()
+    neogit.open({ kind = "floating" })
+  end, { desc = "Open Neogit" })
+
+  map("n", "<Leader>gc", function()
+    neogit.open({ "commit" })
+  end, { desc = "Neogit commit" })
 
   -- fzf lua
   --  map("n", "<Leader>pp", "<Leader>fp", { desc = "Find Projects" })
