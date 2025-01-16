@@ -7,7 +7,7 @@ https://github.com/yazi-rs/plugins/assets/17523360/72aaf117-1378-4f7e-93ba-d425a
 ## Installation
 
 ```sh
-ya pack -a yazi-rs/plugins#smart-filter
+ya pack -a yazi-rs/plugins:smart-filter
 ```
 
 ## Usage
@@ -22,3 +22,7 @@ desc = "Smart filter"
 ```
 
 Make sure the <kbd>F</kbd> key is not used elsewhere.
+
+## License
+
+This plugin is MIT-licensed. For more information check the [LICENSE](LICENSE) file.

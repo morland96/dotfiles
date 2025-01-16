@@ -1,7 +1,7 @@
 # yazi.toml
 [manager]
 ratio          = [ 1, 2, 4 ]
-sort_by        = "modified"
+sort_by        = "alphabetical"
 sort_sensitive = true
 sort_reverse   = true
 sort_dir_first = true
@@ -79,3 +79,13 @@ prepend_previewers = [
 
 [log]
 enabled = false
+
+[[plugin.prepend_fetchers]]
+id   = "git"
+name = "*"
+run  = "git"
+
+[[plugin.prepend_fetchers]]
+id   = "git"
+name = "*/"
+run  = "git"

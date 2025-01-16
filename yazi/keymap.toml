@@ -12,3 +12,20 @@ desc = "Maximize or restore preview"
 on   = "F"
 run  = "plugin smart-filter"
 desc = "Smart filter"
+
+[[input.prepend_keymap]]
+on   = "<Esc>"
+run  = "close"
+desc = "Cancel input"
+
+[[manager.prepend_keymap]]
+on   = "!"
+run  = 'shell "$SHELL" --block'
+desc = "Open shell here"
+
+[[manager.prepend_keymap]]
+on = "<C-p>"
+run = '''
+  shell 'qlmanage -p "$@"'
+'''
+
