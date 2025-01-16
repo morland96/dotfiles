@@ -19,15 +19,15 @@ alt + ctrl - k : yabai -m window --insert north
 alt + ctrl - l : yabai -m window --insert east
 
 # move focused window to next/prev workspace
-alt + shift - 1 : yabai -m window --space 1
-alt + shift - 2 : yabai -m window --space 2
-alt + shift - 3 : yabai -m window --space 3
-alt + shift - 4 : yabai -m window --space 4
-alt + shift - 5 : yabai -m window --space 5
-alt + shift - 6 : yabai -m window --space 6
-alt + shift - 7 : yabai -m window --space 7
-alt + shift - 8 : yabai -m window --space 8
-alt + shift - 9 : yabai -m window --space 9
+# alt + shift - 1 : yabai -m window --space 1
+# alt + shift - 2 : yabai -m window --space 2
+# alt + shift - 3 : yabai -m window --space 3
+# alt + shift - 4 : yabai -m window --space 4
+# alt + shift - 5 : yabai -m window --space 5
+# alt + shift - 6 : yabai -m window --space 6
+# alt + shift - 7 : yabai -m window --space 7
+# alt + shift - 8 : yabai -m window --space 8
+# alt + shift - 9 : yabai -m window --space 9
 
 
 # send window to monitor and follow focus

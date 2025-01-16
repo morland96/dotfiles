@@ -338,11 +338,13 @@ return {
       return opts
     end,
     keys = {
-      { "<leader>cS", "<cmd>AerialToggle! right<cr>", desc = "Aerial (Symbols)" },
+      { "<leader>ct", "<cmd>AerialToggle! right<cr>", desc = "Aerial (Symbols)" },
     },
   },
   {
     "folke/trouble.nvim",
+    opts = function(_, opts)
+    end,
     keys = {
       { "<leader>xx", "<cmd>Trouble diagnostics toggle<cr>", desc = "Diagnostics (Trouble)" },
       { "<leader>xX", "<cmd>Trouble diagnostics toggle filter.buf=0<cr>", desc = "Buffer Diagnostics (Trouble)" },
@@ -374,5 +376,9 @@ return {
     keys = {
       { "<leader>gc", false }, -- prefer neogit
     },
+    -- extend opts
+    opts = function(_, opts)
+      opts.winblend = 50
+    end,
   },
 }

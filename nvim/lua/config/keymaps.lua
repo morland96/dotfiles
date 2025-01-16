@@ -60,7 +60,7 @@ else
   local neogit = require("neogit")
 
   map("n", "<Leader>gs", function()
-    neogit.open({ kind = "floating" })
+    neogit.open({ kind = "floating", cwd = "%:p:h" })
   end, { desc = "Open Neogit" })
 
   map("n", "<Leader>gc", function()
