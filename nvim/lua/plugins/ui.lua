@@ -343,8 +343,7 @@ return {
   },
   {
     "folke/trouble.nvim",
-    opts = function(_, opts)
-    end,
+    opts = function(_, opts) end,
     keys = {
       { "<leader>xx", "<cmd>Trouble diagnostics toggle<cr>", desc = "Diagnostics (Trouble)" },
       { "<leader>xX", "<cmd>Trouble diagnostics toggle filter.buf=0<cr>", desc = "Buffer Diagnostics (Trouble)" },
@@ -380,5 +379,23 @@ return {
     opts = function(_, opts)
       opts.winblend = 50
     end,
+  },
+  {
+    "folke/snacks.nvim",
+    keys = {
+      { "<leader>E", false },
+    },
+  },
+  {
+    "nvim-neo-tree/neo-tree.nvim",
+    keys = {
+      {
+        "<leader>E",
+        function()
+          require("neo-tree.command").execute({ toggle = true, dir = LazyVim.root() })
+        end,
+        desc = "Explorer NeoTree (Root Dir)",
+      },
+    },
   },
 }
