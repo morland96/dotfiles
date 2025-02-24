@@ -2,4 +2,4 @@
 #   "kitty"
 # ]
 
-alt - s : hs -c "stackline.config:toggle('appearance.showIcons')"
+# alt - s : hs -c "stackline.config:toggle('appearance.showIcons')"

@@ -35,4 +35,9 @@ return {
       { "=P", "<Plug>(YankyPutBeforeFilter)", desc = "Put Before Applying a Filter" },
     },
   },
+  {
+    "mg979/vim-visual-multi",
+    branch = "master",
+    -- Ctrl up down to insert cursor
+  }
 }

@@ -83,7 +83,6 @@ return {
           "avante_files",
         },
         default = { "lsp", "path", "snippets", "buffer" },
-        cmdline = {},
       },
 
       keymap = {
