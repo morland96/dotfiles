@@ -1,5 +1,14 @@
 -- Pull in the wezterm API
 local wezterm = require("wezterm")
+
+local is_linux = function()
+	return wezterm.target_triple:find("linux") ~= nil
+end
+
+local is_darwin = function()
+	return wezterm.target_triple:find("darwin") ~= nil
+end
+
 -- This will hold the configuration.
 local config = wezterm.config_builder()
 
@@ -7,26 +16,9 @@ local config = wezterm.config_builder()
 --
 config.enable_kitty_graphics = true
 config.tab_bar_at_bottom = true
-config.use_fancy_tab_bar = false
-config.window_decorations = "RESIZE"
-config.font = wezterm.font_with_fallback({
-	{ family = "JetBrainsMono Nerd Font Mono", weight = "Medium" },
-	{ family = "FiraCode Nerd Font Mono", weight = "Regular" },
-})
 config.tab_max_width = 30
--- config.font = wezterm.font("JetBrainsMono Nerd Font Mono", { weight = 'Medium' })
-config.line_height = 1.10
-config.font_size = 14.0
 config.enable_tab_bar = true
--- config.window_background_opacity = 0.95
--- config.macos_window_background_blur = 10
--- config.freetype_load_flags = 'NO_HINTING'
-config.window_padding = {
-	left = 8,
-	right = 8,
-	top = 8,
-	bottom = 8,
-}
+config.use_fancy_tab_bar = false
 config.initial_cols = 180
 config.initial_rows = 45
 -- config.front_end = "OpenGL"
@@ -34,7 +26,32 @@ config.initial_rows = 45
 -- Color scheme:
 
 config.color_scheme = "Dracula (Official)"
-config.front_end = "WebGpu"
+if is_darwin() then
+	config.font = wezterm.font_with_fallback({
+		{ family = "JetBrainsMono Nerd Font Mono", weight = "Medium" },
+		{ family = "FiraCode Nerd Font Mono", weight = "Regular" },
+	})
+	config.line_height = 1.10
+	config.font_size = 14.0
+	config.window_decorations = "RESIZE"
+	config.window_padding = {
+		left = 8,
+		right = 8,
+		top = 8,
+		bottom = 8,
+	}
+	config.front_end = "WebGpu"
+end
+if is_linux() then
+	config.font = wezterm.font_with_fallback({
+		{ family = "JetBrainsMono Nerd Font Mono", weight = "Medium" },
+		{ family = "CaskaydiaCove Nerd Font Mono" },
+	})
+	config.line_height = 1
+	config.font_size = 10
+	config.front_end = "OpenGL"
+	config.freetype_load_flags = "NO_HINTING"
+end
 
 -- config.colors = {
 -- 	tab_bar = {
@@ -47,6 +64,7 @@ config.front_end = "WebGpu"
 
 -- Keymaps
 local act = wezterm.action
+local cmd_or_alt = is_darwin() and "CMD" or "ALT"
 config.keys = {
 	-- Tabs
 	{
@@ -64,15 +82,16 @@ config.keys = {
 			end),
 		}),
 	},
+
 	-- Panes
 	{
 		key = "Enter",
-		mods = "CMD",
+		mods = cmd_or_alt,
 		action = wezterm.action({ SplitHorizontal = { domain = "CurrentPaneDomain" } }),
 	},
 	{
 		key = "Enter",
-		mods = "SHIFT|CMD",
+		mods = "SHIFT|" .. cmd_or_alt,
 		action = wezterm.action({ SplitVertical = { domain = "CurrentPaneDomain" } }),
 	},
 	-- move panes
@@ -120,6 +139,18 @@ config.keys = {
 		}),
 	},
 }
+
+if is_linux() then
+	for i = 1, 8 do
+		-- CTRL+ALT + number to activate that tab
+		table.insert(config.keys, {
+			key = tostring(i),
+			mods = "ALT",
+			action = act.ActivateTab(i - 1),
+		})
+	end
+end
+
 -- Nvim integration
 local smart_splits = wezterm.plugin.require("https://github.com/mrjones2014/smart-splits.nvim")
 smart_splits.apply_to_config(config, {
