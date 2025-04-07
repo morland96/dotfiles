@@ -53,4 +53,11 @@ return {
       },
     },
   },
+  {
+    "zbirenbaum/copilot.lua", -- temp fix that should be removed
+    optional = true,
+    opts = function()
+      require("copilot.api").status = require("copilot.status")
+    end,
+  },
 }
