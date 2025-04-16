@@ -72,12 +72,11 @@ else
   map("n", "<Leader>pf", LazyVim.pick("files"), { desc = "Find Project Files" })
   map("n", "<Leader>pg", LazyVim.pick("live_grep"), { desc = "Grep Project Files" })
 
-  map("n", "<Leader>bb", "<cmd>FzfLua buffers sort_mru=true sort_lastused=true<cr>", { desc = "Find Buffers" })
-
   -- Telescope
   local telescope_builtin = require("telescope.builtin")
 
-  map("n", "<Leader>bb", "<Cmd>Telescope buffers<CR>", { desc = "Find Buffers" })
+  -- Snack picker
+  map("n", "<Leader>bb", Snacks.picker.buffers, { desc = "Find Buffers" })
 
   -- Editor
   map("n", "<D-k>", "<Cmd>m-2<CR>", { desc = "Move line up" })
