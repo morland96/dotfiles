@@ -1,14 +1,14 @@
 return {
   {
     "polarmutex/git-worktree.nvim",
+    lazy = true,
+    version = "^2",
     dependencies = {
       "nvim-lua/plenary.nvim",
       "nvim-telescope/telescope.nvim",
     },
     config = function()
       require("telescope").load_extension("git_worktree")
-    end,
-    init = function()
       vim.g.git_worktree = {
         change_directory_command = "cd",
         update_on_change = false,
@@ -44,15 +44,16 @@ return {
       {
         "<leader>gwc",
         function()
-          require("telescope").extensions.git_worktree.create_git_worktree()
+          require("telescope").extensions.git_worktree.create_git_worktree({ prefix = "../" })
         end,
         desc = "[Telescope] Create Git Worktree",
       },
     },
   },
-  { "akinsho/git-conflict.nvim", version = "*", config = true },
+  { "akinsho/git-conflict.nvim", lazy = true, version = "*", config = true },
   {
     "NeogitOrg/neogit",
+    lazy = true,
     dependencies = {
       "nvim-lua/plenary.nvim", -- required
       "sindrets/diffview.nvim", -- optional - Diff integration

@@ -6,37 +6,37 @@ return {
       ignored_filetypes = {},
     },
   },
-  {
-    "nvim-neo-tree/neo-tree.nvim",
-    dependencies = {
-      "s1n7ax/nvim-window-picker",
-      name = "window-picker",
-      event = "VeryLazy",
-      version = "2.*",
-      config = function()
-        -- Change the window picker's behavior to use floating windows
-        require("window-picker").setup({
-          hint = "floating-big-letter",
-          autoselect_one = true,
-          include_current = false,
-          filter_rules = {
-            -- filter using buffer options
-            bo = {
-              -- if the file type is one of following, the window will be ignored
-              filetype = { "neo-tree", "neo-tree-popup", "notify" },
-
-              -- if the buffer type is one of following, the window will be ignored
-              buftype = { "terminal", "quickfix" },
-            },
-          },
-        })
-      end,
-    },
-    -- opts = {
-    --   -- prevent neo-tree from opening files in edgy windows
-    --   open_files_do_not_replace_types = { "terminal", "Trouble", "qf", "edgy" },
-    -- },
-  },
+  -- {
+  --   "nvim-neo-tree/neo-tree.nvim",
+  --   dependencies = {
+  --     "s1n7ax/nvim-window-picker",
+  --     name = "window-picker",
+  --     event = "VeryLazy",
+  --     version = "2.*",
+  --     config = function()
+  --       -- Change the window picker's behavior to use floating windows
+  --       require("window-picker").setup({
+  --         hint = "floating-big-letter",
+  --         autoselect_one = true,
+  --         include_current = false,
+  --         filter_rules = {
+  --           -- filter using buffer options
+  --           bo = {
+  --             -- if the file type is one of following, the window will be ignored
+  --             filetype = { "neo-tree", "neo-tree-popup", "notify" },
+  --
+  --             -- if the buffer type is one of following, the window will be ignored
+  --             buftype = { "terminal", "quickfix" },
+  --           },
+  --         },
+  --       })
+  --     end,
+  --   },
+  --   -- opts = {
+  --   --   -- prevent neo-tree from opening files in edgy windows
+  --   --   open_files_do_not_replace_types = { "terminal", "Trouble", "qf", "edgy" },
+  --   -- },
+  -- },
   ---@type LazySpec
   {
     "mikavilpas/yazi.nvim",
@@ -57,16 +57,7 @@ return {
           require("yazi").yazi(nil, vim.fn.getcwd())
         end,
         desc = "Open the file manager in nvim's working directory",
-      },
-      {
-        "<c-up>",
-        function()
-          -- NOTE: requires a version of yazi that includes
-          -- https://github.com/sxyazi/yazi/pull/1305 from 2024-07-18
-          require("yazi").toggle()
-        end,
-        desc = "Resume the last yazi session",
-      },
+      }
     },
     ---@type YaziConfig
     opts = {
@@ -78,14 +69,10 @@ return {
       -- use_yazi_client_id_flag = true,
     },
   },
-  -- File Browser
-  {
-    "nvim-telescope/telescope-file-browser.nvim",
-    dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" },
-  },
   -- Telescope
   {
     "nvim-telescope/telescope.nvim",
+    lazy = true,
     opts = function(_, opts)
       opts.defaults = vim.tbl_extend("force", opts.defaults, {
         path_display = { "smart" },
@@ -113,6 +100,7 @@ return {
   {
     "MattesGroeger/vim-bookmarks",
     -- event = "VeryLazy",
+    lazy = true,
     dependencies = {
       "nvim-telescope/telescope.nvim",
       "tom-anders/telescope-vim-bookmarks.nvim",
@@ -238,10 +226,6 @@ return {
         },
       },
     },
-  },
-  -- Kitty integration
-  {
-    "knubie/vim-kitty-navigator",
   },
   -- Lualine
   {
@@ -386,16 +370,16 @@ return {
       { "<leader>E", false },
     },
   },
-  {
-    "nvim-neo-tree/neo-tree.nvim",
-    keys = {
-      {
-        "<leader>E",
-        function()
-          require("neo-tree.command").execute({ toggle = true, dir = LazyVim.root() })
-        end,
-        desc = "Explorer NeoTree (Root Dir)",
-      },
-    },
-  },
+  -- {
+  --   "nvim-neo-tree/neo-tree.nvim",
+  --   keys = {
+  --     {
+  --       "<leader>E",
+  --       function()
+  --         require("neo-tree.command").execute({ toggle = true, dir = LazyVim.root() })
+  --       end,
+  --       desc = "Explorer NeoTree (Root Dir)",
+  --     },
+  --   },
+  -- },
 }

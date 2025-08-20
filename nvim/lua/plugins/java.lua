@@ -1,4 +1,4 @@
-local config = require "lazyvim.config"
+local config = require("lazyvim.config")
 return {
   {
     "mfussenegger/nvim-jdtls",
@@ -11,6 +11,8 @@ return {
       local home = os.getenv("HOME")
       local jdtls_base = home .. "/.local/share/nvim/mason/packages/jdtls"
       local wk = require("which-key")
+      local extendedClientCapabilities = require("jdtls").extendedClientCapabilities
+      extendedClientCapabilities.resolveAdditionalTextEditsSupport = true
       return {
         -- How to find the root dir for a given filename. The default comes from
         -- lspconfig which provides a function specifically for java projects.
@@ -33,7 +35,13 @@ return {
         jdtls = {
           settings = {
             java = {
-              inlayHints = { parameterNames = { enabled = "all" } },
+              eclipse = { downloadSources = true },
+              maven = { downloadSources = true },
+              inlayHints = { parameterNames = { enabled = "none" } },
+              implementationsCodeLens = { enabled = true },
+              referencesCodeLens = { enabled = true },
+              references = { enabled = true },
+              signatureHelp = { enabled = true },
               format = {
                 settings = {
                   url = "~/.config/style/eclipse-java-google-style.xml",
@@ -48,9 +56,23 @@ return {
               --   },
               -- },
             },
+            completion = {
+              favoriteStaticMembers = {
+                "org.hamcrest.MatcherAssert.assertThat",
+                "org.hamcrest.Matchers.*",
+                "org.hamcrest.CoreMatchers.*",
+                "org.junit.jupiter.api.Assertions.*",
+                "java.util.Objects.requireNonNull",
+                "java.util.Objects.requireNonNullElse",
+                "org.mockito.Mockito.*",
+              },
+            },
+            extendedClientCapabilities = extendedClientCapabilities,
           },
         },
-
+        flags = {
+          allow_incremental_sync = true,
+        },
         -- How to run jdtls. This can be overridden to a full java command-line
         -- if the Python wrapper script doesn't suffice.
         -- Using $JAVA_17_HOME
@@ -60,15 +82,22 @@ return {
           "-Dosgi.bundles.defaultStartLevel=4",
           "-Declipse.product=org.eclipse.jdt.ls.core.product",
           "-Dlog.protocol=true",
-          "-Dlog.level=ALL",
-          "-Xmx12g",
+          "-Dlog.level=ERROR",
+          -- Optimized memory settings
+          "-Xms2g", -- Increased initial heap
+          "-Xmx8g", -- Reduced max heap from 12g to 8g for better GC
+          "-XX:+UseG1GC",
+          "-XX:+UseStringDeduplication", -- Add string deduplication
+          "-XX:G1HeapRegionSize=32m", -- Optimize G1 region size
+          "-XX:+DisableExplicitGC", -- Disable explicit GC calls
+          "-XX:+UseCompressedOops", -- Use compressed object pointers
           "--add-modules=ALL-SYSTEM",
           "--add-opens",
           "java.base/java.util=ALL-UNNAMED",
           "--add-opens",
           "java.base/java.lang=ALL-UNNAMED",
           "-jar",
-          vim.fn.glob(jdtls_base .. '/plugins/org.eclipse.equinox.launcher_*.jar'),
+          vim.fn.glob(jdtls_base .. "/plugins/org.eclipse.equinox.launcher_*.jar"),
           "-configuration",
           jdtls_base .. "/config_mac_arm",
           "-data",
@@ -85,21 +114,35 @@ return {
         -- These depend on nvim-dap, but can additionally be disabled by setting false here.
         dap = { hotcodereplace = "auto", config_overrides = {} },
         test = true,
-        on_attach = function (args)
+        -- Optimized LSP handlers for better performance
+        handlers = {
+          ["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
+            update_in_insert = false, -- Don't update diagnostics while typing
+            virtual_text = {
+              spacing = 4,
+              source = "if_many",
+              severity = { min = vim.diagnostic.severity.WARN }, -- Only show warnings and errors
+            },
+            signs = true,
+            underline = true,
+          }),
+        },
+        on_attach = function(args)
           wk.add({
             {
               mode = "n",
               buffer = args.buf,
-              {
-              }
-            }
+              {},
+            },
           })
-        end
+        end,
       }
     end,
   },
   {
     "google/vim-codefmt",
+    lazy = true,
+    ft = {"java"},
     dependencies = { "google/vim-maktaba", "google/vim-glaive" },
     config = function()
       vim.cmd("call glaive#Install()")

@@ -115,6 +115,7 @@ else
   -- Refactor
   map("n", "<Leader>rr", vim.lsp.buf.rename, { desc = "Rename" })
   map("n", "<Leader>ra", vim.lsp.buf.code_action, { desc = "Code Action" })
+  map("n", "<Leader>g.", vim.lsp.buf.code_action, { desc = "Code Action" })
 
   -- Java
   vim.api.nvim_create_autocmd("LspAttach", {

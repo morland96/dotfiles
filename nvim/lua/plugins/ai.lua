@@ -2,12 +2,15 @@ return {
   {
     "yetone/avante.nvim",
     event = "VeryLazy",
-    lazy = false,
+    lazy = true,
+    mode = "agentic",
     version = false, -- set this to "*" if you want to always pull the latest change, false to update on release
     opts = {
+      providers = {
+        copilot = { model = "claude-sonnet-4" },
+      },
       provider = "copilot",
-      auto_suggestions_provider = "copilot",
-      copilot = { model = "claude-3.5-sonnet" },
+      -- auto_suggestions_provider = "copilot",
       file_selector = {
         --- @alias FileSelectorProvider "native" | "fzf" | "telescope" | string
         provider = "fzf",
