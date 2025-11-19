@@ -1,5 +1,39 @@
-[plugin]
-deps = [{ use = "yazi-rs/plugins:chmod", commit = "06e5fe1" , rev = "600614a" }, { use = "yazi-rs/plugins:max-preview", commit = "06e5fe1" , rev = "600614a" }, { use = "yazi-rs/plugins:smart-filter", commit = "06e5fe1" , rev = "600614a" }, { use = "yazi-rs/plugins:full-border", rev = "600614a" }, { use = "yazi-rs/plugins:git", rev = "600614a" }]
+[[plugin.deps]]
+use = "yazi-rs/plugins:chmod"
+rev = "e95c7b3"
+hash = "1adc12c2b2b025411ab61eb8f0879574"
 
-[flavor]
-deps = [{ use = "tkapias/nightfly", rev = "599b8ad" }, { use = "yazi-rs/flavors:catppuccin-macchiato", rev = "fc8eeaa" }, { use = "yazi-rs/flavors:catppuccin-mocha", rev = "fc8eeaa" }]
+[[plugin.deps]]
+use = "yazi-rs/plugins:smart-filter"
+rev = "e95c7b3"
+hash = "e56b7abf3c06e8ce496eadcca168c093"
+
+[[plugin.deps]]
+use = "yazi-rs/plugins:full-border"
+rev = "e95c7b3"
+hash = "3996fc74044bc44144b323686f887e1"
+
+[[plugin.deps]]
+use = "yazi-rs/plugins:git"
+rev = "e95c7b3"
+hash = "63b6c222bf2103b3023389dde5e2ecfe"
+
+[[plugin.deps]]
+use = "yazi-rs/plugins:toggle-pane"
+rev = "e95c7b3"
+hash = "d6f60c24d8c0cf57a855bf46115b2502"
+
+[[flavor.deps]]
+use = "tkapias/nightfly"
+rev = "599b8ad"
+hash = "d1a9e05ecbbd63bc5bb85a54e7f1e33a"
+
+[[flavor.deps]]
+use = "yazi-rs/flavors:catppuccin-macchiato"
+rev = "9cd2ac4"
+hash = "bc3478e46ebfc411d611e1ccaf04d26a"
+
+[[flavor.deps]]
+use = "yazi-rs/flavors:catppuccin-mocha"
+rev = "9cd2ac4"
+hash = "f54b45bdd33f607ddde47f0afad96142"

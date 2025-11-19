@@ -21,6 +21,7 @@ config.enable_tab_bar = true
 config.use_fancy_tab_bar = false
 config.initial_cols = 180
 config.initial_rows = 45
+config.audible_bell = "Disabled"
 -- config.front_end = "OpenGL"
 
 -- Color scheme:

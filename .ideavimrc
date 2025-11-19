@@ -1,0 +1,115 @@
+set visualbell
+set noerrorbells
+set which-key
+set easymotion
+let mapleader=","
+
+source ~/.intellimacs/spacemacs.vim
+
+" (Optional) Enable other Intellimacs modules
+source ~/.intellimacs/extra.vim
+source ~/.intellimacs/major.vim
+source ~/.intellimacs/hybrid.vim
+
+" (Optional) Enable which-key plugin
+source ~/.intellimacs/which-key.vim
+
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-commentary'
+Plug 'easymotion/vim-easymotion'
+Plug 'terryma/vim-multiple-cursors'
+Plug 'vim-scripts/argtextobj.vim'
+Plug 'kana/vim-textobj-entire'
+Plug 'michaeljsmith/vim-indent-object'
+set mini-ai
+set functiontextobj
+set easymotion
+set peekaboo
+nnoremap s :action AceAction<CR>
+
+
+" Remap multiple-cursors shortcuts to match terryma/vim-multiple-cursors
+nmap <C-n> <Plug>NextWholeOccurrence
+xmap <C-n> <Plug>NextWholeOccurrence
+nmap g<C-n> <Plug>NextOccurrence
+xmap g<C-n> <Plug>NextOccurrence
+xmap <C-x> <Plug>SkipOccurrence
+xmap <C-p> <Plug>RemoveOccurrence
+
+" Note that the default <A-n> and g<A-n> shortcuts don't work on Mac due to dead keys.
+" <A-n> is used to enter accented text e.g. ñ
+" Feel free to pick your own mappings that are not affected. I like to use <leader>
+nmap <leader><C-n> <Plug>AllWholeOccurrences
+xmap <leader><C-n> <Plug>AllWholeOccurrences
+nmap <leader>g<C-n> <Plug>AllOccurrences
+xmap <leader>g<C-n> <Plug>AllOccurrences
+
+" (Optional) My own vim commands
+nnoremap Y y$
+
+unmap grr
+
+" (Optional) Add/edit actions
+nnoremap <leader>gl    :action Vcs.Show.Log<CR>
+vnoremap <leader>gl    :action Vcs.Show.Log<CR>
+
+nmap g]                :action GotoImplementation<CR>
+nmap gO                :action FileStructurePopup<CR>
+nmap gs                :action GotoSuperMethod<CR>
+nmap gr                :action ShowUsages<CR>
+nmap gy                :action GotoDeclaration<CR>
+nmap gI                :action GotoImplementation<CR>
+
+nmap <leader>ci        :action GotoImplementation<CR>
+nmap <leader>cI        :action GotoSuperMethod<CR>
+nmap <leader>cd        :action GotoDeclaration<CR>
+nmap <leader>cD        :action FindUsages<CR>
+nmap <leader>cR        :action FindUsages<CR>
+nmap <leader>cr        :action RenameElement<CR>
+nmap <leader>ca        :action ShowIntentionActions<CR>
+
+nmap <leader>aa        :action SearchEverywhere<CR>
+nmap <leader>pg        :action FindInPath<CR>
+nmap <leader>sk        :action GotoAction<CR>
+nmap <leader>sS        :action GotoSymbol<CR>
+nmap <leader>ss        :action FileStructurePopup<CR>
+
+" Navigation
+nnoremap <S-h>             :action PreviousTab<CR>
+nnoremap <S-l>             :action NextTab<CR>
+
+" Code
+nnoremap <leader>cf   :action ReformatCode<CR>
+
+" Test
+nnoremap <leader>tr   :action RunClass<CR>
+nnoremap <leader>tt   :action RunClass<CR>
+
+" Git
+nnoremap <leader>gs   :action Vcs.Show.CommitHistory<CR>
+nnoremap <leader>gc   :action Vcs.Commit<CR>
+nnoremap <leader>gp   :action Git.Pull<CR>
+nnoremap <leader>gP   :action Git.Push<CR>
+
+" Bookmarks
+nnoremap <leader>bm   :action ToggleBookmark<CR>
+nnoremap <leader><enter>   :action ShowBookmarks<CR>
+nnoremap gl   :action GotoNextBookmark<CR>
+nnoremap gh   :action GotoPreviousBookmark<CR>
+nnoremap <leader>1 :action GotoBookmark1<CR>
+nnoremap <leader>2 :action GotoBookmark2<CR>
+nnoremap <leader>3 :action GotoBookmark3<CR>
+nnoremap <leader>4 :action GotoBookmark4<CR>
+nnoremap <leader>5 :action GotoBookmark5<CR>
+
+" Terminal
+"nnoremap <C-/> :action ActivateTerminalToolWindow<CR>
+
+
+
+set surround
+set timeoutlen=5000
+
+set relativenumber
+set number
+

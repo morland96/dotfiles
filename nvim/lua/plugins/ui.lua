@@ -57,7 +57,7 @@ return {
           require("yazi").yazi(nil, vim.fn.getcwd())
         end,
         desc = "Open the file manager in nvim's working directory",
-      }
+      },
     },
     ---@type YaziConfig
     opts = {
@@ -83,7 +83,7 @@ return {
         },
         color_devicons = true,
         sorting_strategy = "ascending",
-        winblend = 0,
+        winblend = 5,
         prompt_prefix = "   ",
         borderchars = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
         set_env = { ["COLORTERM"] = "truecolor" }, -- default = nil,
@@ -369,6 +369,13 @@ return {
     keys = {
       { "<leader>E", false },
     },
+    opts = function(_, opts)
+      opts.picker.layout = {
+        layout = {
+          backdrop = 80,
+        },
+      }
+    end,
   },
   -- {
   --   "nvim-neo-tree/neo-tree.nvim",

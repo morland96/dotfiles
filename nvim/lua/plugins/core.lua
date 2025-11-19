@@ -50,6 +50,13 @@ return {
         -- adjusts spacing to ensure icons are aligned
         nerd_font_variant = "mono",
       },
+      signature = {
+        enabled = true,
+        window = {
+          border = "rounded",
+          winblend = 15,
+        },
+      },
       completion = {
         accept = {
           -- experimental auto-brackets support
@@ -58,11 +65,16 @@ return {
           },
         },
         menu = {
+          winblend = 15,
           draw = {
             treesitter = { "lsp" },
           },
         },
         documentation = {
+          window = {
+            winblend = 15,
+            border = "rounded",
+          },
           auto_show = true,
           auto_show_delay_ms = 200,
         },

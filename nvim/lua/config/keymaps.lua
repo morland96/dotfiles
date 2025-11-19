@@ -97,6 +97,8 @@ else
 
   -- Search
   map("n", "<Leader>s.", "<cmd>FzfLua<cr>", { desc = "FzfLua search" })
+  map("n", "<Leader>s/", "<cmd>Telescope<cr>", { desc = "Telescope search" })
+
 
   -- Goto
   map("n", "<Leader>ci", "<cmd>FzfLua lsp_implementations<cr>", { desc = "Goto Implementation" })

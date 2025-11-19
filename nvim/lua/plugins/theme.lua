@@ -6,9 +6,26 @@ else
       "catppuccin/nvim",
       name = "catppuccin",
       priority = 1000,
+      -- Temp fix until https://github.com/LazyVim/LazyVim/pull/6354 fixed
+      -- opts = function(_, opts)
+      --   local module = require("catppuccin.groups.integrations.bufferline")
+      --   if module then
+      --     module.get = module.get_theme
+      --   end
+      --   return opts
+      -- end,
       config = function()
         require("catppuccin").setup({
           integrations = {
+            -- cmp = true,
+            gitsigns = true,
+            -- nvimtree = true,
+            -- treesitter = true,
+            notify = true,
+            mini = {
+              enabled = true,
+              indentscope_color = "",
+            },
             which_key = true,
             harpoon = true,
             treesitter_context = true,
@@ -16,37 +33,17 @@ else
               enabled = true,
               style = "nvchad",
             },
+            blink_cmp = true,
+            snacks = {
+              enabled = true,
+            },
           },
-          custom_highlights = function(C)
-            return {
-              CmpItemKindSnippet = { fg = C.base, bg = C.mauve },
-              CmpItemKindKeyword = { fg = C.base, bg = C.red },
-              CmpItemKindText = { fg = C.base, bg = C.teal },
-              CmpItemKindMethod = { fg = C.base, bg = C.blue },
-              CmpItemKindConstructor = { fg = C.base, bg = C.blue },
-              CmpItemKindFunction = { fg = C.base, bg = C.blue },
-              CmpItemKindFolder = { fg = C.base, bg = C.blue },
-              CmpItemKindModule = { fg = C.base, bg = C.blue },
-              CmpItemKindConstant = { fg = C.base, bg = C.peach },
-              CmpItemKindField = { fg = C.base, bg = C.green },
-              CmpItemKindProperty = { fg = C.base, bg = C.green },
-              CmpItemKindEnum = { fg = C.base, bg = C.green },
-              CmpItemKindUnit = { fg = C.base, bg = C.green },
-              CmpItemKindClass = { fg = C.base, bg = C.yellow },
-              CmpItemKindVariable = { fg = C.base, bg = C.flamingo },
-              CmpItemKindFile = { fg = C.base, bg = C.blue },
-              CmpItemKindInterface = { fg = C.base, bg = C.yellow },
-              CmpItemKindColor = { fg = C.base, bg = C.red },
-              CmpItemKindReference = { fg = C.base, bg = C.red },
-              CmpItemKindEnumMember = { fg = C.base, bg = C.red },
-              CmpItemKindStruct = { fg = C.base, bg = C.blue },
-              CmpItemKindValue = { fg = C.base, bg = C.peach },
-              CmpItemKindEvent = { fg = C.base, bg = C.blue },
-              CmpItemKindOperator = { fg = C.base, bg = C.blue },
-              CmpItemKindTypeParameter = { fg = C.base, bg = C.blue },
-              CmpItemKindCopilot = { fg = C.base, bg = C.teal },
-            }
-          end,
+          float = {
+            -- transparency if using neovideo
+            -- transparent = vim.g.neovide and true or false,
+            transparent = true,
+            solid = false, -- use solid styling for floating windows, see |winborder|
+          },
         })
       end,
     },

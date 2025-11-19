@@ -17,7 +17,7 @@ return {
         -- How to find the root dir for a given filename. The default comes from
         -- lspconfig which provides a function specifically for java projects.
         root_dir = function(fname)
-          return require("jdtls.setup").find_root({ ".git", "pipelines-config.json" })
+          return require("jdtls.setup").find_root({ "pipelines-config.json", ".git" })
         end,
 
         -- How to find the project name for a given root dir.
@@ -29,12 +29,15 @@ return {
         jdtls_config_dir = function(project_name)
           return vim.fn.stdpath("cache") .. "/jdtls/" .. project_name .. "/config"
         end,
-        jdtls_workspace_dir = function(project_name)
+        jdtls_workspace_dir = function(project_namem)
           return vim.fn.stdpath("cache") .. "/jdtls/" .. project_name .. "/workspace"
         end,
         jdtls = {
           settings = {
             java = {
+              symbols = {
+                includeSourceMethodDeclarations = true,
+              },
               eclipse = { downloadSources = true },
               maven = { downloadSources = true },
               inlayHints = { parameterNames = { enabled = "none" } },
@@ -42,19 +45,20 @@ return {
               referencesCodeLens = { enabled = true },
               references = { enabled = true },
               signatureHelp = { enabled = true },
+              contentProvider = {preferred = "fernflower"},
               format = {
                 settings = {
                   url = "~/.config/style/eclipse-java-google-style.xml",
                 },
               },
-              -- configuration = {
-              --   runtimes = {
-              --     {
-              --       name = "JavaSE-17",
-              --       path = "/Users/mmeng/.asdf/installs/java/corretto-17.0.10.7.1/bin/java",
-              --     },
-              --   },
-              -- },
+              configuration = {
+                runtimes = {
+                  {
+                    name = "JavaSE-17",
+                    path = "/Users/mmeng/.local/share/mise/installs/java/corretto-17.0.10.7.1/bin/java",
+                  },
+                },
+              },
             },
             completion = {
               favoriteStaticMembers = {
@@ -77,7 +81,8 @@ return {
         -- if the Python wrapper script doesn't suffice.
         -- Using $JAVA_17_HOME
         cmd = {
-          "/Users/mmeng/.local/share/mise/installs/java/corretto-17.0.10.7.1/bin/java",
+          "/Users/mmeng/.local/share/mise/installs/java/corretto-21.0.8.9.1/bin/java",
+          --"/Users/mmeng/.local/share/mise/installs/java/corretto-17.0.10.7.1/bin/java",
           "-Declipse.application=org.eclipse.jdt.ls.core.id1",
           "-Dosgi.bundles.defaultStartLevel=4",
           "-Declipse.product=org.eclipse.jdt.ls.core.product",
@@ -142,13 +147,13 @@ return {
   {
     "google/vim-codefmt",
     lazy = true,
-    ft = {"java"},
+    ft = { "java" },
     dependencies = { "google/vim-maktaba", "google/vim-glaive" },
     config = function()
       vim.cmd("call glaive#Install()")
       -- Java FileType
       vim.cmd([[
-        Glaive codefmt google_java_executable="java -jar /Users/mmeng/.config/style/google-java-format-1.23.0-all-deps.jar --skip-reflowing-long-strings"
+        Glaive codefmt google_java_executable="java -jar /Users/mmeng/.config/style/google-java-format-1.28.0-all-deps.jar --skip-reflowing-long-strings"
         autocmd FileType java AutoFormatBuffer google-java-format
       ]])
     end,

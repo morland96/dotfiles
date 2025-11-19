@@ -34,7 +34,7 @@ if vim.g.neovide then
 
   vim.g.indent_blankline_char = "│"
 
-  vim.opt.winblend = 10
+  vim.opt.winblend = 20
   vim.opt.pumblend = 50
 
   -- Terminal colour
@@ -64,3 +64,5 @@ vim.opt.laststatus = 3
 vim.opt.splitkeep = "screen"
 vim.g.snacks_animate = false
 vim.opt.termguicolors = true
+vim.opt.winblend = 10
+vim.opt.pumblend = 30
