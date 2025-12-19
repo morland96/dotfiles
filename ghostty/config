@@ -1,0 +1,34 @@
+font-family = "JetBrainsMono NFM Medium"
+font-size = 14
+adjust-cell-height = 10%
+cursor-style-blink = false
+cursor-style = block
+
+shell-integration-features = no-cursor
+shell-integration = zsh
+mouse-hide-while-typing = true
+scrollback-limit = 1000000
+
+# Macos Specific
+font-thicken = true
+font-thicken-strength = 0
+clipboard-read = allow
+clipboard-write = allow
+window-colorspace = display-p3
+
+# Appearance
+theme = Catppuccin Macchiato
+#background-opacity = 0.8
+cursor-style = block
+
+desktop-notifications = false
+
+# Keybindings (Common)
+keybind = ctrl+h=goto_split:left
+keybind = ctrl+j=goto_split:bottom
+keybind = ctrl+k=goto_split:top
+keybind = ctrl+l=goto_split:right
+keybind = super+enter=new_split:right
+keybind = super+shift+enter=new_split:down
+keybind = global:alt+backquote=toggle_quick_terminal
+

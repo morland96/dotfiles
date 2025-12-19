@@ -6,16 +6,6 @@ return {
       inlay_hints = { enabled = true },
     },
   },
-  {
-    "zbirenbaum/copilot.lua",
-    enabled = true,
-    cmd = "Copilot",
-    event = "InsertEnter",
-    opts = {
-      suggestion = { enabled = false },
-      panel = { enabled = false },
-    },
-  },
   -- Surround
   {
     "nvim-mini/mini.surround",

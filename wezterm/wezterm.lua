@@ -139,8 +139,12 @@ config.keys = {
 			end),
 		}),
 	},
+	{ key = ";", mods = "SHIFT|CTRL", action = wezterm.action.QuickSelect },
 }
-
+config.quick_select_patterns = {
+	-- Pipelines UUIDs
+	"{[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}}",
+}
 if is_linux() then
 	for i = 1, 8 do
 		-- CTRL+ALT + number to activate that tab

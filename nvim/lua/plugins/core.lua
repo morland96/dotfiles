@@ -3,7 +3,6 @@ return {
     "telescope.nvim",
     dependencies = {
       {
-
         "nvim-telescope/telescope-fzf-native.nvim",
         build = "make",
         config = function()
@@ -86,16 +85,17 @@ return {
       -- experimental signature help support
       -- signature = { enabled = true },
 
-      sources = {
-        -- adding any nvim-cmp sources here will enable them
-        -- with blink.compat
-        compat = {
-          "avante_commands",
-          "avante_mentions",
-          "avante_files",
-        },
-        default = { "lsp", "path", "snippets", "buffer" },
-      },
+      -- sources = {
+      --   -- adding any nvim-cmp sources here will enable them
+      --   -- with blink.compat
+      --   compat = {
+      --     "avante_commands",
+      --     "avante_mentions",
+      --     "avante_files",
+      --   },
+      --   default = { "lsp", "path", "snippets", "buffer", "avante" },
+      --   -- providers = { avante = { module = "blink-cmp-avante", name = "Avante" } },
+      -- },
 
       keymap = {
         preset = "enter",
@@ -104,7 +104,20 @@ return {
     },
     ---@param opts blink.cmp.Config | { sources: { compat: string[] } }
     config = function(_, opts)
-      -- setup compat sources
+      -- vim.api.nvim_create_autocmd("User", {
+      --   pattern = "BlinkCmpMenuOpen",
+      --   callback = function()
+      --     vim.b.copilot_suggestion_hidden = true
+      --   end,
+      -- })
+      --
+      -- vim.api.nvim_create_autocmd("User", {
+      --   pattern = "BlinkCmpMenuClose",
+      --   callback = function()
+      --     vim.b.copilot_suggestion_hidden = false
+      --   end,
+      -- })
+
       local enabled = opts.sources.default
       for _, source in ipairs(opts.sources.compat or {}) do
         opts.sources.providers[source] = vim.tbl_deep_extend(

@@ -101,7 +101,7 @@ else
 
 
   -- Goto
-  map("n", "<Leader>ci", "<cmd>FzfLua lsp_implementations<cr>", { desc = "Goto Implementation" })
+  map("n", "<Leader>ci", Snacks.picker.lsp_implementations, { desc = "Goto Implementation" })
 
   -- Bookmarks
   local bm = require("telescope").extensions.vim_bookmarks
