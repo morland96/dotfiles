@@ -367,7 +367,6 @@ return {
   {
     "folke/snacks.nvim",
     keys = {
-      { "<leader>E", false },
     },
     opts = function(_, opts)
       opts.picker.layout = {
