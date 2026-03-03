@@ -153,7 +153,7 @@ return {
       vim.cmd("call glaive#Install()")
       -- Java FileType
       vim.cmd([[
-        Glaive codefmt google_java_executable="java -jar /Users/mmeng/.config/style/google-java-format-1.28.0-all-deps.jar --skip-reflowing-long-strings"
+        Glaive codefmt google_java_executable="mise exec java@corretto-21.0.8.9.1 -- java -jar /Users/mmeng/.config/style/google-java-format-1.28.0-all-deps.jar --skip-reflowing-long-strings"
         autocmd FileType java AutoFormatBuffer google-java-format
       ]])
     end,
