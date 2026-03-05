@@ -1,4 +1,12 @@
 -- bootstrap lazy.nvim, LazyVim and your plugins
+local handle = io.popen("lsb_release -i") -- Alternative: use lsb_release shell command
+if vim.loop.os_uname().sysname == "Linux" then
+  -- Linux-specific commands
+  vim.g.os = "Linux" -- Set a global variable for use elsewhere
+else
+  -- Other OS specific commands (e.g., for macOS or Windows)
+  vim.g.os = "Other"
+end
 if not vim.g.vscode then
   require("config.lazy")
 else
@@ -12,6 +20,9 @@ if vim.g.neovide then
   vim.g.neovide_refresh_rate = 60
   vim.g.neovide_refresh_rate_idle = 5
   vim.g.neovide_scale_factor = 1.0
+  if vim.g.os == "Linux" then
+    vim.g.neovide_scale_factor = 0.7
+  end
   vim.g.neovide_cursor_trail_size = 0.1
   vim.g.neovide_cursor_antialiasing = true
   vim.g.neovide_cursor_animate_in_insert_mode = true

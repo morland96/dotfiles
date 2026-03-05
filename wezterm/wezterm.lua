@@ -57,6 +57,7 @@ if is_linux() then
 	config.font_size = 10
 	config.front_end = "OpenGL"
 	config.freetype_load_flags = "NO_HINTING"
+  config.enable_wayland = false
 end
 
 -- config.colors = {
