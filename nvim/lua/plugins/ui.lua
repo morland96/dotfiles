@@ -264,7 +264,6 @@ return {
     end,
     config = function(_, opts)
       -- setup dap config by VsCode launch.json file
-      require("dap.ext.vscode").load_launchjs()
       local dap = require("dap")
       local dapui = require("dapui")
       dapui.setup(opts)

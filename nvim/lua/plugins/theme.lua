@@ -58,7 +58,7 @@ else
     {
       "LazyVim/LazyVim",
       opts = {
-        colorscheme = "catppuccin-macchiato",
+        colorscheme = "catppuccin-mocha",
       },
       vscode = true,
     },

@@ -19,7 +19,9 @@ if vim.g.neovide then
   vim.g.neovide_scroll_animation_length = 0.15
   vim.g.neovide_floating_shadow = false
 
-  vim.o.guifont = "JetBrainsMonoNL Nerd Font Mono:h14"
+  -- vim.o.guifont = "GeistMono Nerd Font:h14"
+  --vim.opt.guifont = "JetBrainsMono Nerd Font:h14"
+  -- vim.o.guifont = "JetBrainsMonoNL Nerd Font Mono:h14"
   -- vim.o.guifont = "Menlo:h14"
   -- vim.o.guifont = "FiraCode Nerd Font Mono:h14"
   -- vim.o.guifont = "SauceCodePro Nerd Font:h14"

@@ -1,4 +1,4 @@
-font-family = "JetBrainsMono NFM Medium"
+font-family = "Maple Mono NF"
 font-size = 14
 adjust-cell-height = 10%
 cursor-style-blink = false
@@ -23,12 +23,14 @@ cursor-style = block
 
 desktop-notifications = false
 
+# Support zellij
+macos-option-as-alt = true
 # Keybindings (Common)
-keybind = ctrl+h=goto_split:left
-keybind = ctrl+j=goto_split:bottom
-keybind = ctrl+k=goto_split:top
-keybind = ctrl+l=goto_split:right
-keybind = super+enter=new_split:right
-keybind = super+shift+enter=new_split:down
+# keybind = ctrl+h=goto_split:left
+# keybind = ctrl+j=goto_split:bottom
+# keybind = ctrl+k=goto_split:top
+# keybind = ctrl+l=goto_split:right
+# keybind = super+enter=new_split:right
+# keybind = super+shift+enter=new_split:down
 keybind = global:alt+backquote=toggle_quick_terminal
 

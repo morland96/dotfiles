@@ -22,6 +22,7 @@ config.use_fancy_tab_bar = false
 config.initial_cols = 180
 config.initial_rows = 45
 config.audible_bell = "Disabled"
+config.hide_tab_bar_if_only_one_tab = true
 -- config.front_end = "OpenGL"
 
 -- Color scheme:
@@ -29,8 +30,12 @@ config.audible_bell = "Disabled"
 config.color_scheme = "Dracula (Official)"
 if is_darwin() then
 	config.font = wezterm.font_with_fallback({
-		{ family = "JetBrainsMono Nerd Font Mono", weight = "Medium" },
+		{ family = "Maple Mono NF", weight = "Medium" },
 		{ family = "FiraCode Nerd Font Mono", weight = "Regular" },
+		{ family = "Hack Nerd Font", weight = "Medium" },
+		{ family = "CommitMono Nerd Font", weight = "Medium" },
+		{ family = "GeistMono Nerd Font", weight = "Medium" },
+		{ family = "JetBrainsMono Nerd Font Mono", weight = "Medium" },
 	})
 	config.line_height = 1.10
 	config.font_size = 14.0
@@ -66,6 +71,15 @@ end
 -- Keymaps
 local act = wezterm.action
 local cmd_or_alt = is_darwin() and "CMD" or "ALT"
+config.enable_kitty_keyboard = true
+-- disable keys that conflict with tmux and zellij
+-- config.keys = wezterm.default_keys(config.keys, {
+-- 	{ key = "d", mods = "CTRL", action = "Disable" },
+-- 	{ key = "d", mods = "CTRL|SHIFT", action = "Disable" },
+-- 	{ key = "d", mods = "ALT", action = "Disable" },
+-- 	{ key = "d", mods = "ALT|SHIFT", action = "Disable" },
+-- })
+config.debug_key_events = true
 config.keys = {
 	-- Tabs
 	{
