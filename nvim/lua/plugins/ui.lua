@@ -233,7 +233,7 @@ return {
     event = "VeryLazy",
     opts = function(_, opts)
       opts.options = {
-        theme = "catppuccin",
+        theme = "catppuccin-nvim",
       }
     end,
   },

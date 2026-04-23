@@ -20,16 +20,16 @@ return {
     },
     interactions = {
       chat = {
-        adapter = "copilot",
-        model = "claude-sonnet-4.6",
+        adapter = "claude_code",
+        model = "claude-opus-4.6",
       },
       cmd = {
-        adapter = "copilot",
-        model = "claude-sonnet-4.6",
+        adapter = "claude_code",
+        model = "claude-opus-4.6",
       },
       inline = {
         adapter = "copilot",
-        model = "claude-sonnet-4.6",
+        model = "claude-opus-4.6",
         keymaps = {
           stop = {
             modes = { n = "q" },
@@ -50,6 +50,13 @@ return {
       },
       adapters = {
         acp = {
+          claude_code = function()
+            return require("codecompanion.adapters").extend("claude_code", {
+              env = {
+                CLAUDE_CODE_OAUTH_TOKEN = "CLAUDE_CLI_TOKEN",
+              },
+            })
+          end,
           rovodev = function()
             local helpers = require("codecompanion.adapters.acp.helpers")
             return {
@@ -94,20 +101,16 @@ return {
           end,
         },
       },
-      -- strategies = {
-      --   chat = {
-      --     adapter = "rovodev",
-      --   },
-      --   inline = {
-      --     adapter = "copilot",
-      --   },
-      --   cmd = {
-      --     adapter = "rovodev",
-      --     model = "claude-sonnet-4.5",
-      --   },
-      -- },
-      opts = {
-        log_level = "DEBUG",
+      strategies = {
+        chat = {
+          adapter = "claude_code",
+        },
+        inline = {
+          adapter = "copilot",
+        },
+        cmd = {
+          adapter = "claude_code"
+        },
       },
     },
   },

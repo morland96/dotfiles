@@ -6,7 +6,7 @@ return {
     ft = { "java" },
     opts = function()
       local root_dir = require("jdtls.setup").find_root({ ".git", "pipelines-config.json" })
-      local project_name = root_dir and vim.fs.basename(root_dir)
+      local project_name = root_dir and (vim.fs.basename(root_dir) .. "_" .. vim.fn.sha256(root_dir))
       local workspace_dir = vim.fn.stdpath("cache") .. "/jdtls/" .. project_name .. "/workspace"
       local home = os.getenv("HOME")
       local jdtls_base = home .. "/.local/share/nvim/mason/packages/jdtls"
@@ -35,17 +35,23 @@ return {
         jdtls = {
           settings = {
             java = {
+              autobuild = {
+                enabled = true,
+              },
               symbols = {
                 includeSourceMethodDeclarations = true,
               },
               eclipse = { downloadSources = true },
               maven = { downloadSources = true },
+              import = {
+                maven = { enabled = false },
+              },
               inlayHints = { parameterNames = { enabled = "none" } },
               implementationsCodeLens = { enabled = true },
               referencesCodeLens = { enabled = true },
               references = { enabled = true },
               signatureHelp = { enabled = true },
-              contentProvider = {preferred = "fernflower"},
+              contentProvider = { preferred = "fernflower" },
               format = {
                 settings = {
                   url = "~/.config/style/eclipse-java-google-style.xml",
@@ -56,6 +62,11 @@ return {
                   {
                     name = "JavaSE-17",
                     path = "/Users/mmeng/.local/share/mise/installs/java/corretto-17.0.10.7.1/bin/java",
+                  },
+                  {
+                    name = "JavaSE-25",
+                    path = "/Users/mmeng/.local/share/mise/installs/java/corretto-25/bin/java",
+                    default = true,
                   },
                 },
               },
@@ -69,6 +80,7 @@ return {
                 "java.util.Objects.requireNonNull",
                 "java.util.Objects.requireNonNullElse",
                 "org.mockito.Mockito.*",
+                "com.atlassian.pipelines.*",
               },
             },
             extendedClientCapabilities = extendedClientCapabilities,
@@ -81,7 +93,7 @@ return {
         -- if the Python wrapper script doesn't suffice.
         -- Using $JAVA_17_HOME
         cmd = {
-          "/Users/mmeng/.local/share/mise/installs/java/corretto-21.0.8.9.1/bin/java",
+          "/Users/mmeng/.local/share/mise/installs/java/corretto-25/bin/java",
           --"/Users/mmeng/.local/share/mise/installs/java/corretto-17.0.10.7.1/bin/java",
           "-Declipse.application=org.eclipse.jdt.ls.core.id1",
           "-Dosgi.bundles.defaultStartLevel=4",

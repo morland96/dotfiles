@@ -221,12 +221,16 @@ if.app-id = 'com.apple.weather'
 run = ['layout floating']
 
 [[on-window-detected]]
+if.app-id = 'com.apple.weather'
+run = ['layout floating']
+
+[[on-window-detected]]
 if.app-id = 'us.zoom.xos'
 run = ['layout floating']
 
 [[on-window-detected]]
-if.app-id = 'com.apple.mail'
-run = 'move-node-to-workspace 8'
+if.app-id = 'com.atlassian.pipelines.plumber'
+run = ['layout floating']
 
 [[on-window-detected]]
 if.app-id = 'com.apple.Music'
