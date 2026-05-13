@@ -26,11 +26,14 @@ desktop-notifications = false
 # Support zellij
 macos-option-as-alt = true
 # Keybindings (Common)
-# keybind = ctrl+h=goto_split:left
-# keybind = ctrl+j=goto_split:bottom
-# keybind = ctrl+k=goto_split:top
-# keybind = ctrl+l=goto_split:right
+keybind = ctrl+h=unbind
+keybind = ctrl+j=unbind
+keybind = ctrl+k=unbind
+keybind = ctrl+l=unbind
+keybind = ctrl+alt+h=goto_split:left
+keybind = ctrl+alt+j=goto_split:bottom
+keybind = ctrl+alt+k=goto_split:top
+keybind = ctrl+alt+l=goto_split:right
 # keybind = super+enter=new_split:right
 # keybind = super+shift+enter=new_split:down
 keybind = global:alt+backquote=toggle_quick_terminal
-

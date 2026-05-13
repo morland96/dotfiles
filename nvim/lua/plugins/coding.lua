@@ -1,9 +1,25 @@
 -- Code related plugins
+local path_sep = package.config:sub(1, 1) == "\\" and ";" or ":"
+local platformio_toolchain_bins = vim.fn.glob(vim.fn.expand("~") .. "/.platformio/packages/toolchain-*/bin", false, true)
+local platformio_toolchain_path = table.concat(platformio_toolchain_bins, path_sep)
+
 return {
   {
     "neovim/nvim-lspconfig",
     opts = {
       inlay_hints = { enabled = true },
+      servers = {
+        clangd = {
+          cmd = {
+            "clangd",
+            "--query-driver=" .. vim.fn.expand("~") .. "/.platformio/packages/toolchain-*/bin/*",
+          },
+          cmd_env = {
+            PATH = platformio_toolchain_path ~= "" and (platformio_toolchain_path .. path_sep .. vim.env.PATH)
+              or vim.env.PATH,
+          },
+        },
+      },
     },
   },
   -- Surround
@@ -38,6 +54,8 @@ return {
       ensure_installed = {
         "bash",
         "c",
+        "cpp",
+        "cmake",
         "html",
         "java",
         "javascript",
