@@ -150,8 +150,6 @@ local router = sbar.add("item", {
   },
 })
 
-sbar.add("item", { position = "right", width = settings.dimens.padding.item })
-
 wifiUp:subscribe("network_update", function(env)
   local upColor = (env.upload == "000 Bps") and settings.colors.grey or settings.colors.orange
   local downColor = (env.download == "000 Bps") and settings.colors.grey or settings.colors.blue

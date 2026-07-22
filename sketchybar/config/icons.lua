@@ -43,6 +43,7 @@ local apps = {
   ["Citrix Workspace"] = ":citrix:",
   ["Citrix Viewer"] = ":citrix:",
   ["ClickUp"] = ":click_up:",
+  ["Claude"] = ":claude:",
   ["Code"] = ":code:",
   ["Code - Insiders"] = ":code:",
   ["Color Picker"] = ":color_picker:",
