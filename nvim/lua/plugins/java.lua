@@ -35,8 +35,12 @@ return {
         jdtls = {
           settings = {
             java = {
+              -- Disabled to avoid a race with `mvn compile`: jdtls's ECJ and
+              -- Maven's javac both write into target/classes. With autobuild on,
+              -- jdtls rebuilds whenever mvn touches files on disk, and the two
+              -- compilers clobber each other's output -> Maven build failures.
               autobuild = {
-                enabled = true,
+                enabled = false,
               },
               symbols = {
                 includeSourceMethodDeclarations = true,

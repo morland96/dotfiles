@@ -6,10 +6,10 @@ local AGENT_WATCHER = os.getenv("HOME") .. "/.cargo/bin/agent-watcher"
 
 -- `agent-watcher status --content` prints "▶2 ⏸1 ⚠1" (working / idle / waiting
 -- counts) via a sub-millisecond socket round-trip, and an EMPTY string when
--- there are no sessions. We drop the built-in "CC" label and render the Claude
--- app icon (sketchybar-app-font) in front of the counts instead. The status
--- query never auto-spawns the daemon, so this widget draws only while Claude
--- sessions are live and hides itself otherwise.
+-- there are no sessions. We drop the built-in "CC" label and render a generic
+-- agent icon (the Nerd Font robot glyph) in front of the counts instead. The
+-- status query never auto-spawns the daemon, so this widget draws only while
+-- agent sessions are live and hides itself otherwise.
 local agent_watcher = sbar.add("item", "widgets.agent_watcher", {
   position = "right",
   update_freq = 2, -- matches the tmux status-interval
@@ -18,13 +18,6 @@ local agent_watcher = sbar.add("item", "widgets.agent_watcher", {
   -- sessions came back without a full sketchybar reload. `always` keeps the
   -- 2s tick running while drawing = false so the widget self-heals.
   updates = true,
-  icon = {
-    string = settings.icons.apps["Claude"],
-    font = settings.fonts.icons(),
-    color = settings.colors.dirty_white,
-    padding_left = settings.dimens.padding.label,
-    padding_right = 4, -- tight gap between the Claude glyph and the counts
-  },
   label = {
     color = settings.colors.dirty_white,
     padding_left = 0,

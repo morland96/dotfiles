@@ -11,6 +11,9 @@ end
 
 -- This will hold the configuration.
 local config = wezterm.config_builder()
+-- macOS's font resolver currently omits user-installed fonts on this system.
+-- Scan the user font directory as a fallback so Maple Mono NF is available.
+config.font_dirs = { "/Users/mmeng/Library/Fonts" }
 
 -- UI
 --
